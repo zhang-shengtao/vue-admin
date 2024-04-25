@@ -1,5 +1,5 @@
 export * from "vue-router";
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
 import middleware from "./permission";
 import statics from "./modules/static";
 import moduleRouter from "./modules";
@@ -14,7 +14,7 @@ let router;
 export default function _createRouter() {
   if (router) return router;
   router = createRouter({
-    history: createWebHistory(config.base),
+    history: createWebHashHistory(config.base),
     routes,
     strict: true,
   });
