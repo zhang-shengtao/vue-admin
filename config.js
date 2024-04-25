@@ -15,7 +15,7 @@ export const layoutInfo = {
  */
 export const config = {
   isAddRouter: true,
-  base: "/",
+  base: "./",
   baseUrl: "",
 };
 
