@@ -132,6 +132,5 @@ export default defineStore("user", () => {
     data.KeepAlive = [];
     data.searchMenu = [];
   }
-
   return { ...toRefs(data), getRouterInfo, resetRouter };
 });
