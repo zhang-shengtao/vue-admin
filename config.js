@@ -15,8 +15,8 @@ export const layoutInfo = {
  */
 export const config = {
   isAddRouter: true,
-  base: "/vue-admin",
-  baseUrl: "http://www.mingchuliangzao.com",
+  base: "/",
+  baseUrl: "",
 };
 
 const key = "USER";

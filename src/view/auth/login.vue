@@ -24,19 +24,18 @@
 
 <script setup>
 // import { login } from "@/api/user";
-
+const router = useRouter();
 const isPassword = ref(false);
 const fromData = reactive({
   username: "",
-  password: ""
+  password: "",
 });
 
 function loginSubmit() {
   if (!fromData.username) return ElMessage("请填写账号");
   if (!fromData.password) return ElMessage("请填写密码");
-  // login(fromData).then((res) => {
-  //   console.log(res);
-  // });
+  localStorage.setItem("USER_TOKEN", Math.random().toString(16).substr(2));
+  router.push("/");
 }
 </script>
 

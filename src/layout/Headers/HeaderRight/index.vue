@@ -24,11 +24,11 @@ function theme() {
   layoutInfoData.theme = layoutInfoData.theme === "normal" ? "dark" : "normal";
   document.documentElement.className = layoutInfoData.theme;
 }
-
+const router = useRouter();
 function layout() {
   ElMessageBox.confirm("确认退出登录吗?", "提示", { type: "warning" }).then(() => {
     removeStorage(storageKey.token);
-    location.replace("/");
+    router.replace("/login");
   });
 }
 </script>
