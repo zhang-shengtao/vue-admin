@@ -1,0 +1,36 @@
+<template>
+  <el-space :size="15" class="float_right">
+    <Icon
+      class="icon_hover"
+      :name="isFullscreen ? 'mingcute:fullscreen-exit-line' : 'ri:fullscreen-line'"
+      :size="22"
+      @click="toggle"
+      v-if="winWidth > 750"
+    />
+    <Icon class="icon_hover" :name="layoutInfoData.theme === 'normal' ? 'Moon' : 'Sunny'" :size="22" @click="theme" />
+    <searchPage v-if="winWidth > 750" />
+    <Icon class="icon_hover" @click="layout" name="SwitchButton" :size="22" />
+  </el-space>
+</template>
+
+<script setup>
+import searchPage from "./searchPage.vue";
+import { layoutData } from "@/src/layout";
+import { removeStorage } from "@/src/utils/storage";
+import { storageKey } from "@/config";
+const { isFullscreen, toggle } = useFullscreen(document.documentElement);
+const { layoutInfoData, winWidth } = layoutData();
+function theme() {
+  layoutInfoData.theme = layoutInfoData.theme === "normal" ? "dark" : "normal";
+  document.documentElement.className = layoutInfoData.theme;
+}
+
+function layout() {
+  ElMessageBox.confirm("确认退出登录吗?", "提示", { type: "warning" }).then(() => {
+    removeStorage(storageKey.token);
+    location.replace("/");
+  });
+}
+</script>
+
+<style lang="scss" scoped></style>

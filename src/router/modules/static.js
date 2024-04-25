@@ -1,0 +1,21 @@
+const hidden = true;
+/**
+ * 静态路由所有角色打开都能看到的路由
+ * @param {Boolean} hidden 为true表示不显示在菜单中
+ * @param {Boolean} KeepAlive 为true表示缓存该组件
+ * @module []
+ */
+export default [
+  {
+    path: "/login",
+    meta: { title: "登录", hidden },
+    name: "login",
+    component: () => import("@/src/view/auth/login.vue"),
+  },
+  {
+    path: "/404",
+    alias: "/:pathMatch(.*)*",
+    meta: { title: "404", hidden },
+    component: () => import("@/src/view/auth/404.vue"),
+  },
+];
