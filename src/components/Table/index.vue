@@ -20,6 +20,7 @@
       <el-pagination
         style="float: right"
         v-if="total"
+        small
         :page-sizes="[10, 20, 30, 40]"
         background
         layout="total, sizes, prev, pager, next, jumper"

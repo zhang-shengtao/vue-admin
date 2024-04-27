@@ -5,7 +5,6 @@
 <script setup>
 import * as echarts from "echarts";
 import "echarts-gl";
-import { onUnmounted, watch } from "vue";
 const props = defineProps({
   option: {
     type: Object,
@@ -18,10 +17,6 @@ let myChart = ref(null);
 
 function init() {
   myChart.value = echarts.init(dom.value);
-  useResizeObserver(dom, (val) => {
-    const { height, width } = val[0].contentRect;
-    myChart.value.resize({ height, width });
-  });
 }
 
 watch(
@@ -32,6 +27,7 @@ watch(
 );
 
 defineExpose({ myChart });
+
 onMounted(() => {
   init();
 });
