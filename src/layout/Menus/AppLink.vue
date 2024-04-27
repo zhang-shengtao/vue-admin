@@ -8,19 +8,19 @@
 const props = defineProps({
   path: {
     type: String,
-    require: true
+    require: true,
   },
   target: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 const to = reactive({
-  to: props.path
+  to: props.path,
 });
 const dom = ref("RouterLink");
 
-if (props.path.startsWith("http") || props.target) {
+if (props.path.startsWith("http")) {
   dom.value = "a";
   delete to.to;
   to.href = props.path;
@@ -29,6 +29,7 @@ if (props.path.startsWith("http") || props.target) {
   to.to = props.path;
   delete to.href;
   delete to.target;
+  if (props.target) to.target = "_blank";
 }
 </script>
 

@@ -14,7 +14,7 @@ export const layoutInfo = {
  * @param {String} base 项目部署在服务端的访问目录名称
  */
 export const config = {
-  isAddRouter: true,
+  isAddRouter: false,
   base: "/vue-admin",
   baseUrl: "",
 };

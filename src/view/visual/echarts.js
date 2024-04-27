@@ -14,19 +14,19 @@ function getPie3D(pieData, internalDiameterRatio, boxHeight) {
       type: "surface",
       parametric: true,
       wireframe: {
-        show: false
+        show: false,
       },
       pieData: pieData[i],
       pieStatus: {
         selected: false,
         hovered: false,
-        k
-      }
+        k,
+      },
     };
     if (typeof pieData[i].itemStyle !== "undefined") {
       const itemStyle = {
         color: "",
-        opacity: ""
+        opacity: "",
       };
       itemStyle.color =
         typeof pieData[i].itemStyle.color !== "undefined" ? (itemStyle.color = pieData[i].itemStyle.color) : null;
@@ -60,21 +60,21 @@ function getPie3D(pieData, internalDiameterRatio, boxHeight) {
     type: "surface",
     parametric: true,
     wireframe: {
-      show: false
+      show: false,
     },
     itemStyle: {
-      opacity: 0
+      opacity: 0,
     },
     parametricEquation: {
       u: {
         min: 0,
         max: Math.PI * 2,
-        step: Math.PI / 20
+        step: Math.PI / 20,
       },
       v: {
         min: 0,
         max: Math.PI,
-        step: Math.PI / 20
+        step: Math.PI / 20,
       },
       x(u, v) {
         return Math.sin(v) * Math.sin(u) + Math.sin(u);
@@ -84,8 +84,8 @@ function getPie3D(pieData, internalDiameterRatio, boxHeight) {
       },
       z(u, v) {
         return Math.cos(v) > 0 ? 0.1 : -0.1;
-      }
-    }
+      },
+    },
   });
 
   // 准备待返回的配置项，把准备好的 legendData、series 传入。
@@ -93,7 +93,7 @@ function getPie3D(pieData, internalDiameterRatio, boxHeight) {
     // backgroundColor: "#0b4fc8",
     tooltip: {
       textStyle: {
-        fontSize: 13
+        fontSize: 13,
       },
       formatter: (params) => {
         if (params.seriesName !== "mouseoutSeries" && params.seriesName !== "pie2d") {
@@ -103,20 +103,20 @@ function getPie3D(pieData, internalDiameterRatio, boxHeight) {
             `${option.series[params.seriesIndex].pieData.value}%`
           );
         }
-      }
+      },
     },
     animation: true,
     xAxis3D: {
       min: -1,
-      max: 1
+      max: 1,
     },
     yAxis3D: {
       min: -1,
-      max: 1
+      max: 1,
     },
     zAxis3D: {
       min: -1,
-      max: "dataMax"
+      max: "dataMax",
     },
     grid3D: {
       top: -20,
@@ -129,26 +129,26 @@ function getPie3D(pieData, internalDiameterRatio, boxHeight) {
         rotateSensitivity: 0,
         zoomSensitivity: 0,
         panSensitivity: 0,
-        autoRotate: false // 是否旋转
+        autoRotate: false, // 是否旋转
       },
       // 后处理特效可以为画面添加高光、景深、环境光遮蔽（SSAO）、调色等效果。可以让整个画面更富有质感。
       postEffect: {
         enable: true,
         bloom: {
           enable: true,
-          bloomIntensity: 0.1
+          bloomIntensity: 0.1,
         },
         SSAO: {
           enable: true,
           quality: "medium",
-          radius: 2
-        }
+          radius: 2,
+        },
       },
       temporalSuperSampling: {
-        enable: true
-      }
+        enable: true,
+      },
     },
-    series
+    series,
   };
 
   pieData.map((item) => {
@@ -161,8 +161,8 @@ function getPie3D(pieData, internalDiameterRatio, boxHeight) {
       length: 20,
       length2: 70,
       lineStyle: {
-        color: "#00eaff"
-      }
+        color: "#00eaff",
+      },
     },
     startAngle: 10, //起始角度，支持范围[0, 360]。
     clockwise: false, //饼图的扇区是否是顺时针排布。上述这两项配置主要是为了对齐3d的样式
@@ -170,24 +170,24 @@ function getPie3D(pieData, internalDiameterRatio, boxHeight) {
     center: ["50%", "50%"],
     data: pieData,
     itemStyle: {
-      opacity: 1
-    }
+      opacity: 1,
+    },
   });
   option.labelLine = {
-    show: true
+    show: true,
   };
   option.label = {
     show: true,
     position: "outside",
     rich: {
       b: {
-        color: "#333"
+        color: "#333",
       },
       c: {
-        color: "#333"
-      }
+        color: "#333",
+      },
     },
-    formatter: "{b|{b}}\n{c|{c}%}"
+    formatter: "{b|{b}}\n{c|{c}%}",
   };
   return option;
 }
@@ -209,12 +209,12 @@ function getParametricEquation(startRatio, endRatio, isSelected, isHovered, knum
     u: {
       min: -Math.PI,
       max: Math.PI * 3,
-      step: Math.PI / 32
+      step: Math.PI / 32,
     },
     v: {
       min: 0,
       max: Math.PI * 2,
-      step: Math.PI / 20
+      step: Math.PI / 20,
     },
     x(u, v) {
       if (u < startRadian) {
@@ -242,7 +242,7 @@ function getParametricEquation(startRatio, endRatio, isSelected, isHovered, knum
         return Math.sin(u) * h * 0.1;
       }
       return Math.sin(v) > 0 ? 1 * h * 0.1 : -1;
-    }
+    },
   };
 }
 // 3D饼图
@@ -253,13 +253,11 @@ export function pie(echartData, myEcharts) {
       name: item.name,
       value: item.value,
       itemStyle: {
-        color: colorArr[index]
-      }
+        color: colorArr[index],
+      },
     };
   });
-  const options = getPie3D(newEchartData, 0, 60);
-  myEcharts.setOption(options, true);
-  myEcharts.resize();
+  return getPie3D(newEchartData, 0, 60);
 }
 
 // 3D柱状图
@@ -278,23 +276,23 @@ export function bar3D(data, myEcharts) {
       axisLine: {
         lineStyle: {
           color: "rgba(0,0,0,0)",
-          width: 0
-        }
+          width: 0,
+        },
       },
       splitLine: {
-        show: true
+        show: true,
       },
       axisLabel: {
         interval: 0,
         rotate: 45,
         textStyle: {
           color: "#fff",
-          fontSize: 12
-        }
+          fontSize: 12,
+        },
       },
       axisTick: {
-        show: true
-      }
+        show: true,
+      },
     },
     yAxis3D: {
       name: "",
@@ -304,18 +302,18 @@ export function bar3D(data, myEcharts) {
       axisLine: {
         lineStyle: {
           color: "rgba(0,0,0,0)",
-          width: 0
-        }
+          width: 0,
+        },
       },
       splitLine: {
-        show: true
+        show: true,
       },
       axisLabel: {
-        show: true
+        show: true,
       },
       axisTick: {
-        show: true
-      }
+        show: true,
+      },
     },
     zAxis3D: {
       name: "",
@@ -323,40 +321,40 @@ export function bar3D(data, myEcharts) {
       axisLine: {
         lineStyle: {
           color: "#0F0",
-          width: 0
-        }
+          width: 0,
+        },
       },
       splitLine: {
-        show: false
+        show: false,
       },
       axisLabel: {
-        show: false
+        show: false,
       },
       axisTick: {
-        show: false
-      }
+        show: false,
+      },
     },
     grid3D: {
       boxWidth: 200,
       boxDepth: 0,
       axisPointer: {
-        show: false
+        show: false,
       },
       light: {
         main: {
-          intensity: 1.2
+          intensity: 1.2,
         },
         ambient: {
-          intensity: 0.3
-        }
+          intensity: 0.3,
+        },
       },
       viewControl: {
         alpha: 0,
         beta: 0,
         autoRotate: false,
         zoomSensitivity: 0.2,
-        distance: 180
-      }
+        distance: 180,
+      },
     },
     series: [
       {
@@ -368,8 +366,8 @@ export function bar3D(data, myEcharts) {
             color: function (params) {
               var colorList = ["#37b70c", "#fae521", "#f29c00", "#dd3f36", "#b3013f", "#a00398", "#E87C25", "#C6E579"];
               return colorList[params.dataIndex];
-            }
-          }
+            },
+          },
         },
         data: [
           [0, 0, 18000],
@@ -379,17 +377,17 @@ export function bar3D(data, myEcharts) {
           [4, 0, 10000],
           [5, 0, 6000],
           [6, 0, 18000],
-          [7, 0, 10000]
+          [7, 0, 10000],
         ],
         stack: "stack",
         shading: "lambert",
         emphasis: {
           label: {
-            show: true
-          }
-        }
-      }
-    ]
+            show: true,
+          },
+        },
+      },
+    ],
   };
 
   myEcharts.setOption(option);

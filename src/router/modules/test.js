@@ -8,6 +8,7 @@ export default [
     path: "/test",
     redirect: "/test/t",
     name: "test",
+    meta: { title: "测试二级路由", icon: "HomeFilled" },
     component: layout,
     children: [
       {

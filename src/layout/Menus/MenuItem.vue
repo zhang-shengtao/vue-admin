@@ -7,7 +7,7 @@
     <menu-item v-for="items in item.children" :key="items.path" :item="items" />
   </el-sub-menu>
 
-  <app-link v-else :path="item.path" :target="item.target" @click="isModel = !isModel">
+  <app-link v-else :path="item.path" :target="item?.meta.target" @click="isModel = !isModel">
     <el-menu-item :index="item.path">
       <Icon v-if="item.meta && item.meta.icon" :name="item.meta.icon" />
       <template #title>{{ (item.meta && item.meta.title) || "默认" }}</template>

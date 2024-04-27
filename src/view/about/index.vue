@@ -49,7 +49,7 @@ function fileList(e) {
 }
 
 async function logins() {
-  login({ username: "1100", password: "123456" }, { upload, download })
+  login({ username: "1100", password: "123456", upload })
     .then((res) => {
       console.log(res);
     })

@@ -1,11 +1,10 @@
 import request from "@/src/utils/request";
 
-export function login(data, { upload, download }) {
+export function login(data) {
   return request.post({
     url: "/company/v1/authorizations",
     data,
-    upload,
-    download,
+    upload, // 上传进度
   });
 }
 

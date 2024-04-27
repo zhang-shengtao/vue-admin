@@ -11,8 +11,9 @@ const whiteList = ["/login", "/404"]; // 路由白名单
 export default function (router) {
   router.beforeEach(async (to, from, next) => {
     const { userInfo, getRouterInfo } = userPinia();
+    const title = useTitle("后台管理系统");
     NProgress.start();
-    if (to.meta && to.meta.title) document.title = to.meta.title;
+    if (to.meta && to.meta.title) title.value = to.meta.title;
     if (getStorage(storageKey.token)) {
       if (to.path === "/login") {
         next("/");
@@ -25,6 +26,7 @@ export default function (router) {
           try {
             await getRouterInfo(); // 动态路由
             next({ ...to, replace: true });
+            NProgress.done();
           } catch (err) {
             console.log("错误信息", err);
             next(`/login?redirect=${to.path}`);

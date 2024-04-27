@@ -17,6 +17,20 @@ export function random(n, m) {
   return Math.floor(Math.random() * (m - n) + n);
 }
 
+/**
+ * 生成一个随机字符串
+ * @param length 长度
+ * @returns String
+ */
+export function randomString(length = 5) {
+  const values = new Uint32Array(length);
+  window.crypto.getRandomValues(values);
+  return Array.from(values, (value) => value.toString(36)).join("");
+}
+
+/**
+ *
+ * */
 export function uploadFile(obj) {
   const { multiple, accept } = Object.assign({ multiple: false, accept: "*" }, obj || {});
   return new Promise((resolve, reject) => {
