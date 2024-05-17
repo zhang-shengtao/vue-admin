@@ -1,16 +1,14 @@
 <template>
-  <div class="visual" :style="{ transform: `scal(${scal})` }">
-    <!-- <div class="header"></div> -->
-    <div class="content">
-      <div class="item item1">1</div>
-      <div class="item item2">2</div>
-      <div class="item item3">3</div>
-      <div class="item item4">4</div>
-      <div class="item item5">5</div>
-      <div class="item item6">6</div>
-      <div class="item item7">7</div>
-      <div class="item item8">8</div>
-    </div>
+  <div class="header"></div>
+  <div class="content">
+    <Echart :option="option" class="item item1" />
+    <div class="item item2">2</div>
+    <div class="item item3">3</div>
+    <div class="item item4">4</div>
+    <div class="item item5">5</div>
+    <div class="item item6">6</div>
+    <div class="item item7">7</div>
+    <div class="item item8">8</div>
   </div>
 </template>
 
@@ -53,27 +51,31 @@ const op = pie([
 ]);
 
 onMounted(() => {
-  option.value = op;
+  // option.value = op;
 });
 </script>
 
 <style lang="scss" scoped>
-.visual {
-  text-align: center;
+.header {
+  width: 100%;
+  height: 100px;
   background-color: aliceblue;
-  min-height: 100%;
-  display: flex;
-  .content {
-    display: grid;
-    gap: 15px;
-    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-    min-height: 100%;
-    flex: 1;
-    padding: 15px;
+}
+.content {
+  height: calc(100% - 100px);
+  display: grid;
+  gap: 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  background-color: rgb(7, 60, 95);
+  grid-template: repeat(3, 1fr) / 0.6fr 1fr 0.6fr;
+  .item {
+    background-color: antiquewhite;
     box-sizing: border-box;
-    .item {
-      background-color: rgb(144, 197, 243);
-    }
+  }
+  .item2 {
+    grid-column: 2;
+    grid-row: 1 / span 2;
   }
 }
 </style>

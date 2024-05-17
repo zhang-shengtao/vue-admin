@@ -1,6 +1,5 @@
 {
-  "name": "vite-admin",
-  "private": true,
+  "name": "vue3-template-admin",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
