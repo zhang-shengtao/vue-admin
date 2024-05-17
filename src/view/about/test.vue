@@ -1,4 +1,6 @@
-<template>test3</template>
+<template>
+  <el-card> </el-card>
+</template>
 
 <script setup></script>
 

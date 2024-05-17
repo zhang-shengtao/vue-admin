@@ -6,6 +6,7 @@ export default function () {
   return [
     Components({
       resolvers: [ElementPlusResolver()],
+      include: [/\.vue$/, /\.vue\?vue/, /\.jsx$/],
     }),
     AutoImport({
       dts: false,

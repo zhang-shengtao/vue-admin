@@ -29,7 +29,10 @@ export function randomString(length = 5) {
 }
 
 /**
- *
+ * 点击按钮掉起文件选择框
+ * @param {Object} obj 一个对象类型的参数
+ * @param {Boolean} obj.multiple 是否多选
+ * @param {String} obj.accept 需要选择的文件后缀名
  * */
 export function uploadFile(obj) {
   const { multiple, accept } = Object.assign({ multiple: false, accept: "*" }, obj || {});
@@ -55,11 +58,10 @@ export function uploadFile(obj) {
 
 /**
  * 文件切片
- * @param { File | Array[File] } file   是否多选 { File | Array[File] }
- * @param {Number} point 断点续传的分片位置
+ * @param { File | Array[File] } file 需要分片的文件 { File | Array[File] }
  * @returns {Array} Array[Object]
  */
-export function sliceFile(file, point = 0) {
+export function sliceFile(file) {
   return new Promise((resolve) => {
     let fileList = [];
     const size = 1024 * 1024 * 10; // 每片大小10M

@@ -18,9 +18,9 @@ let myChart = ref(null);
 
 function init() {
   myChart.value = echarts.init(dom.value);
-  useResizeObserver(dom, (val) => {
-    const { height, width } = val[0].contentRect;
-    myChart.value.resize({ height, width });
+  const { width, height } = useWindowSize();
+  watch([width, height], (val) => {
+    myChart.value.resize();
   });
 }
 
