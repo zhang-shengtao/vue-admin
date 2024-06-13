@@ -8,6 +8,8 @@ export const layoutInfo = {
   isTag: true,
 };
 
+const key = "USER";
+
 /**整个项目的配置信息
  * @param {Boolean} isAddRouter 是否需要动态路由（true=需要）（false=不需要）
  * @param {String} baseUrl 项目请求的根路径
@@ -17,9 +19,9 @@ export const config = {
   isAddRouter: false,
   base: "/vue-admin",
   baseUrl: "",
+  key,
 };
 
-const key = "USER";
 /**整个项目存储的key*/
 export const storageKey = {
   token: `${key}_TOKEN`,
