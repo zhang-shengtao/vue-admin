@@ -24,5 +24,6 @@ dist-ssr
 *.sln
 *.sw?
 .vscode
+.vite
 *.zip*
-stats.html
+/stats.html
