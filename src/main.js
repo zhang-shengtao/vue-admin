@@ -8,7 +8,7 @@ import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
 import "@/src/assets/style.scss";
 
-async function _createApp() {
+export default async function _createApp() {
   try {
     const app = createApp(h(ElConfigProvider, { locale: zhCn, message: { max: 2 } }, () => h(RouterView)));
     const pinia = _createPinia();
