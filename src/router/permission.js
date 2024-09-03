@@ -4,6 +4,7 @@ NProgress.configure({ showSpinner: false });
 import { userPinia } from "@/src/pinia";
 import { storageKey } from "@/config.js";
 import { getStorage } from "@/src/utils/storage.js";
+import { clearRequests } from "@/src/utils/request.js";
 
 // 这路由拦截器需要根据项目实际情况进行更改
 const whiteList = ["/login", "/404"]; // 路由白名单
@@ -12,6 +13,7 @@ export default function (router) {
   router.beforeEach(async (to, from, next) => {
     const { userInfo, getRouterInfo } = userPinia();
     const title = useTitle("后台管理系统");
+    clearRequests();
     NProgress.start();
     if (to.meta && to.meta.title) title.value = to.meta.title;
     if (getStorage(storageKey.token)) {

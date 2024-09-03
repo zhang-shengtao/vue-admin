@@ -10,10 +10,15 @@ export default defineConfig({
     port: 8000,
     host: "0.0.0.0",
     proxy: {
-      "^/company": {
+      "^/supplierapi": {
         target: config.baseUrl,
         changeOrigin: true,
-        pathRewrite: { "/^/company/": "/company" },
+        pathRewrite: { "/^/supplierapi/": "/supplierapi" },
+      },
+      "^/api": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        pathRewrite: { "/^/api/": "/api" },
       },
     },
   },

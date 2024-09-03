@@ -18,7 +18,7 @@ const key = "USER";
 export const config = {
   isAddRouter: false,
   base: "/vue-admin",
-  baseUrl: "",
+  baseUrl: "http://testeshop.shiankuaixian.com:8085",
   key,
 };
 

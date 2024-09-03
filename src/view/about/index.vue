@@ -1,19 +1,20 @@
 <template>
   <el-card>
-    <el-input v-model="text" placeholder="输入框"></el-input>
+    <!-- <el-input v-model="text" placeholder="输入框"></el-input>
     <Upload :upload="fileList" v-model:fileList="list" :limit="4"> </Upload>
     <Upload accept=".png,.txt" dray :upload="fileLists" v-model:fileList="list">
       <div class="drag">这里是拖拽区域</div>
-    </Upload>
+    </Upload> -->
     <el-button @click="logins">login</el-button>
-    <el-button @click="push">push</el-button>
-    <img width="200" v-preview height="200" :src="url" alt="测试图" />
-    <el-input v-model="text" placeholder="输入框"></el-input>
+    <el-button v-file="uploadFile">upload</el-button>
+    <el-button @click="downloadFile">download</el-button>
+    <!-- <img width="200" v-preview height="200" :src="url" alt="测试图" />
+    <el-input v-model="text" placeholder="输入框"></el-input> -->
   </el-card>
 </template>
 
 <script setup>
-import { login } from "@/src/api";
+import { login, upload, download } from "@/src/api";
 const text = ref("");
 const router = useRouter();
 const list = ref([
@@ -35,29 +36,47 @@ function push() {
   });
 }
 
-function upload(e) {
-  console.log("上传进度", e);
-}
-function download(e) {
-  console.log("下载进度", e);
-}
-
-function fileLists(e) {
+function onUploadProgress(e) {
   console.log(e);
 }
 
-function fileList(e) {
-  list.value.push(URL.createObjectURL(new Blob(e)));
+function uploadFile(e) {
+  const data = new FormData();
+  data.append("type", "file");
+  data.append("file", e[0]);
+
+  upload(data, onUploadProgress)
+    .then((res) => {
+      console.log("res=>", res);
+    })
+    .catch((err) => {
+      console.log("err=>", err);
+    });
+}
+function downloadProgress(e) {
+  console.log("下载进度", e);
 }
 
-async function logins() {
-  login({ username: "1100", password: "123456", upload })
+function downloadFile() {
+  download(downloadProgress)
     .then((res) => {
       console.log(res);
     })
-    .catch((res) => {
-      console.log(res);
+    .catch((err) => {
+      console.log(err);
     });
+}
+
+function fileLists(e) {
+  // console.log(e);
+}
+
+function fileList(e) {
+  // list.value.push(URL.createObjectURL(new Blob(e)));
+}
+
+async function logins() {
+  login({ username: "1100", password: "123456" });
 }
 </script>
 

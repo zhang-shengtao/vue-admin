@@ -10,12 +10,12 @@ addEventListener("message", async (e) => {
     startSize = index * size;
     const endSizeNext = startSize + size;
     endSize = endSizeNext >= file.size ? file.size : endSizeNext;
-    promiseAll.push(promiseFileSlice(file, startSize, endSize, sliceFileTotal, index, size));
+    promiseAll.push(promiseFileSlice(file, startSize, endSize, sliceFileTotal, index, endSize - startSize));
   }
   Promise.all(promiseAll).then(self.postMessage);
 });
 
-function promiseFileSlice(file, start, end, total, i, fragmentationSize) {
+function promiseFileSlice(file, start, end, total, index, size) {
   return new Promise((reslove) => {
     const spark = new SparkMD5.ArrayBuffer();
     const fileReader = new FileReader();
@@ -26,13 +26,13 @@ function promiseFileSlice(file, start, end, total, i, fragmentationSize) {
         blob,
         startByte: start, // 从那个字节开始
         endByte: end, // 从那个字节结束
-        fragmentationTotal: total, // 切片总数
-        fragmentationIndex: i, // 当前切片的下标
-        fragmentationSize, // 每片切片的大小
+        total, // 切片总数
+        index, // 当前切片的下标
+        size, // 每片切片的大小
         hash: spark.end(), // 给当前切片添加一个唯一hash
         lastModified: file.lastModified, // 原始文件的最后一次修改时间
         name: file.name, // 原始文件的名字
-        totalSize: file.size // 原始文件的大小
+        totalSize: file.size, // 原始文件的大小
       });
     };
     fileReader.readAsArrayBuffer(blob);

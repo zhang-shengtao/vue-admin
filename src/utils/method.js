@@ -66,7 +66,7 @@ export function sliceFile(file) {
     let fileList = [];
     const size = 1024 * 1024 * 10; // 每片大小10M
     const sliceFileTotal = Math.ceil(file.size / size); // 总共要切多少片
-    let cupNum = navigator.hardwareConcurrency; // 需要开启得线程(cup核心数)
+    let cupNum = navigator.hardwareConcurrency; // 需要开启的线程(cup核心数)
     if (sliceFileTotal < cupNum) cupNum = sliceFileTotal;
     let remainder = sliceFileTotal % cupNum; // 多出来得分片数量
     const fragmentation = (sliceFileTotal - remainder) / cupNum; // 每一个线程需要分几片
