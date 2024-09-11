@@ -5,7 +5,7 @@ import { typeOf } from "./method.js";
 export function getStorage(key) {
   if (typeOf(key) != "string") return;
   let value = localStorage.getItem(key);
-  if (typeOf(key) === "null") return value;
+  if (!value) return value;
   const param = JSON.parse(value);
   if (["string"].includes(param.type)) {
     return param.val;

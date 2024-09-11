@@ -1,6 +1,8 @@
 import axios from "axios";
-import { config, storageKey } from "@/config";
+import { storageKey } from "@/config";
 import { getStorage } from "./storage";
+
+const baseURL = location.origin;
 
 const clearRequest = [];
 function isClearRequest(config, add = true) {
@@ -35,12 +37,14 @@ function errorHandle(code, data) {
 }
 
 const install = axios.create({
-  baseURL: "",
+  baseURL,
   timeout: 5000,
 });
 
 install.interceptors.request.use((config) => {
-  config.headers.Authorization = "Bearer " + getStorage(storageKey.token);
+  if (getStorage(storageKey.token)) {
+    config.headers.Authorization = "Bearer " + getStorage(storageKey.token);
+  }
   let isClear = true;
   if (config.hasOwnProperty("isClear")) isClear = config.isClear;
   if (isClear) config.cancelToken = isClearRequest(config);
