@@ -26,6 +26,7 @@ defineProps({
   url: {
     type: String,
     default: "",
+    require: true,
   },
 });
 const model = defineModel();

@@ -17,12 +17,12 @@
         <img :src="item" class="img" alt="" />
         <div v-if="isShowModel === item" class="fileListModel center">
           <el-space size="large">
-            <Icon name="ZoomIn" @click="preview(item)" color="#fff" :size="20" />
+            <my-icon name="ZoomIn" @click="preview(item)" color="#fff" :size="20" />
             <a :href="item" download="下载.png">
-              <Icon name="Download" color="#fff" :size="20" />
+              <my-icon name="Download" color="#fff" :size="20" />
             </a>
-            <Icon name="Delete" v-if="isDetele" @click="deleteFileList(item, i)" color="#fff" :size="20" />
-            <Icon name="CopyDocument" @click="copyUrl(item)" color="#fff" :size="20" />
+            <my-icon name="Delete" v-if="isDetele" @click="deleteFileList(item, i)" color="#fff" :size="20" />
+            <my-icon name="CopyDocument" @click="copyUrl(item)" color="#fff" :size="20" />
           </el-space>
         </div>
       </div>
@@ -34,7 +34,7 @@
     </template>
     <template v-else>
       <div class="upload center" v-file:[accept]="upload" v-if="limit > fileList.length">
-        <Icon name="Plus" class="iconPlus" :size="30" />
+        <my-icon name="Plus" class="iconPlus" :size="30" />
       </div>
     </template>
   </div>
@@ -46,7 +46,7 @@ import Perview from "./perview.vue";
 const props = defineProps({
   accept: {
     type: String,
-    default: "*",
+    default: "image/*",
   },
   dray: {
     type: Boolean,

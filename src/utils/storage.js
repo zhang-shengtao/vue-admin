@@ -1,16 +1,28 @@
+import { typeOf } from "./method.js";
+
+// boolean string number null undefined object array
+
 export function getStorage(key) {
+  if (typeOf(key) != "string") return;
   let value = localStorage.getItem(key);
-  try {
-    value = JSON.parse(value);
-  } catch (error) {}
-  return value;
+  if (typeOf(key) === "null") return value;
+  const param = JSON.parse(value);
+  if (["null", "undefined", "string"].includes(param.type)) {
+    return param.val;
+  }
+  return JSON.parse(param.val);
 }
 
 export function setStorage(key, val) {
-  try {
-    val = JSON.parse(val);
-  } catch (error) {}
-  localStorage.setItem(key, val);
+  if (typeOf(key) != "string") throw new Error("不受支持的存储类型");
+  if (!["boolean", "string", "number", "null", "undefined", "object", "array"].includes(typeOf(val))) {
+    throw new Error("不受支持的数据存储类型，请包含 boolean,string,number,null,undefined,object,array");
+  }
+  const param = {
+    type: typeOf(val),
+    val,
+  };
+  localStorage.setItem(key, JSON.stringify(param));
 }
 
 /**
