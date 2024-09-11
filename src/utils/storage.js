@@ -1,6 +1,6 @@
 import { typeOf } from "./method.js";
 
-// boolean string number null undefined object array
+// boolean string number object array
 
 export function getStorage(key) {
   if (typeOf(key) != "string") return;
