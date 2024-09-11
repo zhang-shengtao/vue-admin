@@ -47,6 +47,7 @@ install.interceptors.request.use((config) => {
   delete config.isClear;
   return config;
 });
+
 install.interceptors.response.use(
   (response) => {
     isClearRequest(response.config, false);
@@ -55,7 +56,7 @@ install.interceptors.response.use(
     if (res.status >= 200 && res.status < 300) return res;
     return errorHandle(res.status, res);
   },
-  (error) => errorHandle(error.response.status, error.response.data)
+  (error) => errorHandle(error.response.status, error.response.data),
 );
 
 export default install;

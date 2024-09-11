@@ -7,7 +7,7 @@ export function getStorage(key) {
   let value = localStorage.getItem(key);
   if (typeOf(key) === "null") return value;
   const param = JSON.parse(value);
-  if (["null", "undefined", "string"].includes(param.type)) {
+  if (["string"].includes(param.type)) {
     return param.val;
   }
   return JSON.parse(param.val);
@@ -15,7 +15,7 @@ export function getStorage(key) {
 
 export function setStorage(key, val) {
   if (typeOf(key) != "string") throw new Error("不受支持的存储类型");
-  if (!["boolean", "string", "number", "null", "undefined", "object", "array"].includes(typeOf(val))) {
+  if (!["boolean", "string", "number", "object", "array"].includes(typeOf(val))) {
     throw new Error("不受支持的数据存储类型，请包含 boolean,string,number,null,undefined,object,array");
   }
   const param = {
