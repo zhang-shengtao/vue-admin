@@ -22,7 +22,7 @@ export function random(n, m) {
  * @param length 长度
  * @returns String
  */
-export function randomString(length = 5) {
+export function randomString(length = 12) {
   const values = new Uint32Array(length);
   window.crypto.getRandomValues(values);
   return Array.from(values, (value) => value.toString(36)).join("");

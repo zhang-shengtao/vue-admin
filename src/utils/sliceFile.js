@@ -33,6 +33,7 @@ function promiseFileSlice(file, start, end, total, index, size) {
         lastModified: file.lastModified, // 原始文件的最后一次修改时间
         name: file.name, // 原始文件的名字
         totalSize: file.size, // 原始文件的大小
+        type: file.type,
       });
     };
     fileReader.readAsArrayBuffer(blob);

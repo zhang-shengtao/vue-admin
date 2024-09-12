@@ -1,9 +1,9 @@
 import axios from "axios";
 import { storageKey } from "@/config";
-import { getStorage } from "./storage";
+import { getStorage, removeStorage } from "./storage";
 
 const baseURL = location.origin;
-
+let isLogin = false; // 这里记录一个登录状态的变量当未登录的情况下有请求进来时候可以做一些事情
 const clearRequest = [];
 function isClearRequest(config, add = true) {
   let url = `${config.url}&${config.method}`;
@@ -28,6 +28,7 @@ function errorHandle(code, data) {
   switch (code) {
     case 401:
       console.log("登录去");
+      removeStorage(storageKey.token);
     case 500:
       console.log("服务器错误");
     default:
