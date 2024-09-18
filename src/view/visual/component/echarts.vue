@@ -23,7 +23,7 @@ watch(
   () => props.option,
   (val) => {
     myChart.value.setOption(val, true);
-  }
+  },
 );
 
 defineExpose({ myChart });

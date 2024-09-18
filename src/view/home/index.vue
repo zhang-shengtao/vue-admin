@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <el-button style="margin-top: 10px" @click="clearSelection">clearSelection</el-button>
-    <Table
+    <my-table
       stripe
       border
       show-summary
@@ -26,7 +26,7 @@
       <template #empty>
         <div>空的数据</div>
       </template>
-    </Table>
+    </my-table>
   </el-card>
 </template>
 
@@ -151,7 +151,6 @@ const tabelHeaders = [
   {
     type: "selection",
     width: "120",
-
     fixed: true,
   },
   {
