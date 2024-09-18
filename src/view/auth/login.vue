@@ -24,6 +24,8 @@
 
 <script setup>
 // import { login } from "@/api/user";
+import { setStorage } from "@/src/utils/storage.js";
+import { storageKey } from "@/config.js";
 const router = useRouter();
 const isPassword = ref(false);
 const fromData = reactive({
@@ -34,7 +36,7 @@ const fromData = reactive({
 function loginSubmit() {
   if (!fromData.username) return ElMessage("请填写账号");
   if (!fromData.password) return ElMessage("请填写密码");
-  localStorage.setItem("USER_TOKEN", Math.random().toString(16).substr(2));
+  setStorage(storageKey.token, Math.random().toString(16).substr(2));
   router.push("/");
 }
 </script>
