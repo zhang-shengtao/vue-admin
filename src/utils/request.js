@@ -27,8 +27,8 @@ export function clearRequests() {
 function errorHandle(code, data) {
   switch (code) {
     case 401:
-      console.log("登录去");
       removeStorage(storageKey.token);
+      console.log("登录去");
     case 500:
       console.log("服务器错误");
     default:

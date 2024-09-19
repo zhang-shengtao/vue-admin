@@ -16,7 +16,7 @@ export function getStorage(key) {
 export function setStorage(key, val) {
   if (typeOf(key) != "string") throw new Error("不受支持的存储类型");
   if (!["boolean", "string", "number", "object", "array"].includes(typeOf(val))) {
-    throw new Error("不受支持的数据存储类型，请包含 boolean,string,number,null,undefined,object,array");
+    throw new Error("不受支持的数据存储类型，请包含 boolean,string,number,object,array");
   }
   const param = {
     type: typeOf(val),

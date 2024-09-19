@@ -20,31 +20,31 @@
 import { typeOf } from "@/src/utils/method.js";
 const props = defineProps({
   children: {
-    type: Array
+    type: Array,
   },
   header: {
     type: [String],
-    default: ""
+    default: "",
   },
   slots: {
     type: Object,
-    default: {}
+    default: {},
   },
   prop: {
     type: [String, Function],
-    default: ""
+    default: "",
   },
   formatter: {
-    type: Function
+    type: Function,
   },
   slot: {
     type: String,
-    default: ""
+    default: "",
   },
   align: {
     type: String,
-    default: "center"
-  }
+    default: "center",
+  },
 });
 
 function tableColumnProp(attrs) {

@@ -1,16 +1,7 @@
 <template>
   <el-card class="box-card">
     <el-button style="margin-top: 10px" @click="clearSelection">clearSelection</el-button>
-    <my-table
-      stripe
-      border
-      show-summary
-      :data="tableData"
-      :total="total"
-      :ref="(news) => (MyTabels = news?.elTable)"
-      @pageLimit="handlePagination"
-      :columns="tabelHeaders"
-    >
+    <my-table :data="tableData" :total="total" ref="MyTabels" @pageLimit="handlePagination" :columns="tabelHeaders">
       <template #input="{ column, $index }">
         <el-input v-model="text" placeholder="请输入zip"></el-input>
       </template>
@@ -215,6 +206,10 @@ const tabelHeaders = [
 const MyTabels = ref(null);
 function clearSelection() {
   MyTabels.value.clearSelection();
+}
+
+function action(val) {
+  console.log(val);
 }
 
 function handlePagination(val) {

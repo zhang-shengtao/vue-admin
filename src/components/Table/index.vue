@@ -1,25 +1,24 @@
 <template>
-  <div>
-    <el-table :="$attrs" ref="elTableRef">
+  <div style="overflow: hidden">
+    <el-table :="$attrs" ref="elTableRef" border>
       <table-column v-for="(item, i) in columns" :key="i" :="item" :slots="tableSlot($slots, false)" />
       <template v-for="(val, key) in tableSlot($slots)" #[key]="scope">
         <component :is="val" :="scope" />
       </template>
     </el-table>
-    <div style="padding-top: 15px">
-      <el-dropdown placement="top">
+    <div style="margin-top: 15px">
+      <el-dropdown placement="top" v-if="isAction">
         <el-button type="primary" text>批量操作</el-button>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>批量删除</el-dropdown-item>
-            <el-dropdown-item> 批量编辑 </el-dropdown-item>
-            <el-dropdown-item>批量审核</el-dropdown-item>
+            <el-dropdown-item v-for="(item, i) in action" :key="item" @click="() => $emit('changeAction', item, i)">
+              {{ item }}
+            </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
       <el-pagination
         style="float: right"
-        v-if="total"
         small
         :page-sizes="[10, 20, 30, 40]"
         background
@@ -43,6 +42,14 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  isAction: {
+    type: Boolean,
+    default: false,
+  },
+  action: {
+    type: Array,
+    default: ["批量删除", "批量编辑", "批量审核"],
+  },
 });
 
 function tableSlot(s, isTabel = true) {
@@ -58,10 +65,21 @@ function tableSlot(s, isTabel = true) {
   return obj;
 }
 
-const elTableRef = ref();
-defineExpose({
-  elTable: elTableRef,
-});
+const elTableRef = ref(null);
+
+const proxy = new Proxy(
+  {},
+  {
+    get(target, key) {
+      return elTableRef.value?.[key];
+    },
+    has(target, key) {
+      return key in elTableRef.value;
+    },
+  },
+);
+
+defineExpose(proxy);
 </script>
 
 <style lang="scss" scoped></style>
