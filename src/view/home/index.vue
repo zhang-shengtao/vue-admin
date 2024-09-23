@@ -203,7 +203,7 @@ const tabelHeaders = [
   },
 ];
 
-const MyTabels = ref(null);
+const MyTabels = useTemplateRef("MyTabels");
 function clearSelection() {
   MyTabels.value.clearSelection();
 }

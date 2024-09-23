@@ -1,10 +1,10 @@
 <template>
   <el-card>
-    <!-- <el-input v-model="text" placeholder="输入框"></el-input>
-    <Upload :upload="fileList" v-model:fileList="list" :limit="4"> </Upload>
-    <Upload accept=".png,.txt" dray :upload="fileLists" v-model:fileList="list">
+    <el-input v-model="text" placeholder="输入框"></el-input>
+    <my-upload :upload="fileList" multiple v-model:fileList="list" :limit="4"> </my-upload>
+    <my-upload accept=".png,.txt" dray :upload="fileLists" v-model:fileList="list">
       <div class="drag">这里是拖拽区域</div>
-    </Upload> -->
+    </my-upload>
     <el-button @click="logins">login</el-button>
     <el-button v-file="uploadFile">upload</el-button>
     <el-button @click="downloadFile">download</el-button>
@@ -68,10 +68,11 @@ function downloadFile() {
 }
 
 function fileLists(e) {
-  // console.log(e);
+  console.log(e);
 }
 
 function fileList(e) {
+  console.log(e);
   // list.value.push(URL.createObjectURL(new Blob(e)));
 }
 

@@ -28,14 +28,28 @@
       </div>
     </TransitionGroup>
     <template v-if="$slots.default">
-      <div v-file:[accept]="upload" v-if="limit > fileList.length">
-        <slot></slot>
-      </div>
+      <template v-if="multiple">
+        <div v-file:[accept].multiple="upload" v-if="limit > fileList.length">
+          <slot></slot>
+        </div>
+      </template>
+      <template v-else>
+        <div v-file:[accept]="upload" v-if="limit > fileList.length">
+          <slot></slot>
+        </div>
+      </template>
     </template>
     <template v-else>
-      <div class="upload center" v-file:[accept]="upload" v-if="limit > fileList.length">
-        <my-icon name="Plus" class="iconPlus" :size="30" />
-      </div>
+      <template v-if="multiple">
+        <div class="upload center" v-file:[accept].multiple="upload" v-if="limit > fileList.length">
+          <my-icon name="Plus" class="iconPlus" :size="30" />
+        </div>
+      </template>
+      <template v-else>
+        <div class="upload center" v-file:[accept]="upload" v-if="limit > fileList.length">
+          <my-icon name="Plus" class="iconPlus" :size="30" />
+        </div>
+      </template>
     </template>
   </div>
   <Perview :url="previewUrl" v-model="isPreview" />
@@ -47,6 +61,10 @@ const props = defineProps({
   accept: {
     type: String,
     default: "image/*",
+  },
+  multiple: {
+    type: Boolean,
+    default: false,
   },
   dray: {
     type: Boolean,
@@ -79,7 +97,7 @@ const previewUrl = ref("");
 const deleteFileList = (item, i) => {
   emit(
     "update:file-list",
-    props.fileList.filter((url) => url != item)
+    props.fileList.filter((url) => url != item),
   );
 };
 

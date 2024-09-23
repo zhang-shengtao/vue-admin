@@ -67,19 +67,19 @@ function tableSlot(s, isTabel = true) {
 
 const elTableRef = ref(null);
 
-const proxy = new Proxy(
-  {},
-  {
-    get(target, key) {
-      return elTableRef.value?.[key];
+defineExpose(
+  new Proxy(
+    {},
+    {
+      get(target, key) {
+        return elTableRef.value?.[key];
+      },
+      has(target, key) {
+        return key in elTableRef.value;
+      },
     },
-    has(target, key) {
-      return key in elTableRef.value;
-    },
-  },
+  ),
 );
-
-defineExpose(proxy);
 </script>
 
 <style lang="scss" scoped></style>
