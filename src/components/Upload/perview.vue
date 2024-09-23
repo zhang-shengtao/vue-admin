@@ -1,7 +1,7 @@
 <template>
   <teleport to="body">
     <transition name="viewer-fade" appear>
-      <div class="perview" v-if="model">
+      <div class="perview" :style="{ zIndex: nextZIndex() }" v-if="model">
         <div class="perview_model"></div>
         <div class="perview_close center" @click="model = false">
           <Icon name="Close" color="#ffffff" :size="30" />
@@ -22,6 +22,7 @@
 </template>
 
 <script setup>
+import { useZIndex } from "element-plus";
 defineProps({
   url: {
     type: String,
@@ -30,6 +31,7 @@ defineProps({
   },
 });
 const model = defineModel();
+const { nextZIndex } = useZIndex();
 
 const transform = reactive({
   scale: 1,
@@ -133,7 +135,6 @@ watch(model, (val) => {
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 2005;
   .perview_model {
     background: #000;
     height: 100%;

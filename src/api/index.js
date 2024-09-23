@@ -1,7 +1,7 @@
 import request from "@/src/utils/request";
 
 export function login(data) {
-  return request.get("/supplierapi/login/info", data);
+  return request.get("/supplierapi/login/info", { params: data });
 }
 
 // 上传文件监听进度示例 onUploadProgress key名不可变

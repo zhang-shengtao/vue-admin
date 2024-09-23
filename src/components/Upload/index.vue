@@ -7,11 +7,11 @@
   <div class="space" v-else>
     <TransitionGroup name="list">
       <div
-        v-if="fileList.length"
+        v-if="images.length"
         class="fileList"
         @mouseenter="isShowModel = item"
         @mouseleave="isShowModel = ''"
-        v-for="(item, i) in fileList"
+        v-for="(item, i) in images"
         :key="item"
       >
         <img :src="item" class="img" alt="" />
@@ -29,24 +29,24 @@
     </TransitionGroup>
     <template v-if="$slots.default">
       <template v-if="multiple">
-        <div v-file:[accept].multiple="upload" v-if="limit > fileList.length">
+        <div v-file:[accept].multiple="upload" v-if="limit > images.length">
           <slot></slot>
         </div>
       </template>
       <template v-else>
-        <div v-file:[accept]="upload" v-if="limit > fileList.length">
+        <div v-file:[accept]="upload" v-if="limit > images.length">
           <slot></slot>
         </div>
       </template>
     </template>
     <template v-else>
       <template v-if="multiple">
-        <div class="upload center" v-file:[accept].multiple="upload" v-if="limit > fileList.length">
+        <div class="upload center" v-file:[accept].multiple="upload" v-if="limit > images.length">
           <my-icon name="Plus" class="iconPlus" :size="30" />
         </div>
       </template>
       <template v-else>
-        <div class="upload center" v-file:[accept]="upload" v-if="limit > fileList.length">
+        <div class="upload center" v-file:[accept]="upload" v-if="limit > images.length">
           <my-icon name="Plus" class="iconPlus" :size="30" />
         </div>
       </template>
@@ -75,7 +75,7 @@ const props = defineProps({
     default: 1,
   },
   fileList: {
-    type: Array,
+    type: Array || String,
     default: [],
     required: true,
   },
@@ -87,6 +87,11 @@ const props = defineProps({
     type: Function,
     required: true,
   },
+});
+
+const images = computed(() => {
+  if (typeof props.fileList === "string") return [props.fileList];
+  return props.fileList;
 });
 
 const emit = defineEmits(["update:file-list"]);
@@ -108,7 +113,7 @@ const preview = (url) => {
 
 const { copy } = useClipboard();
 async function copyUrl(url) {
-  copy(url);
+  await copy(url);
   ElMessage.success("复制成功");
 }
 </script>
