@@ -1,10 +1,5 @@
 <template>
-  <template v-if="dray">
-    <div v-file:[accept].dray="upload">
-      <slot></slot>
-    </div>
-  </template>
-  <div class="space" v-else>
+  <div class="space">
     <TransitionGroup name="list">
       <div
         v-if="images.length"
@@ -27,48 +22,19 @@
         </div>
       </div>
     </TransitionGroup>
-    <template v-if="$slots.default">
-      <template v-if="multiple">
-        <div v-file:[accept].multiple="upload" v-if="limit > images.length">
-          <slot></slot>
-        </div>
-      </template>
-      <template v-else>
-        <div v-file:[accept]="upload" v-if="limit > images.length">
-          <slot></slot>
-        </div>
-      </template>
-    </template>
-    <template v-else>
-      <template v-if="multiple">
-        <div class="upload center" v-file:[accept].multiple="upload" v-if="limit > images.length">
-          <my-icon name="Plus" class="iconPlus" :size="30" />
-        </div>
-      </template>
-      <template v-else>
-        <div class="upload center" v-file:[accept]="upload" v-if="limit > images.length">
-          <my-icon name="Plus" class="iconPlus" :size="30" />
-        </div>
-      </template>
-    </template>
+    <div class="upload center" v-file:[accept]="upload" v-if="limit > images.length">
+      <my-icon name="Plus" class="iconPlus" :size="30" />
+    </div>
+    <perview :urlList="[previewUrl]"></perview>
   </div>
-  <Perview :url="previewUrl" v-model="isPreview" />
 </template>
 
 <script setup>
-import Perview from "./perview.vue";
+import perview from "./perview.vue";
 const props = defineProps({
   accept: {
     type: String,
     default: "image/*",
-  },
-  multiple: {
-    type: Boolean,
-    default: false,
-  },
-  dray: {
-    type: Boolean,
-    default: false,
   },
   limit: {
     type: Number,
