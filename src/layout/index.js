@@ -16,7 +16,7 @@ watch(
   (val) => {
     if (val) headerHeight.value = 90;
     if (!val) headerHeight.value = 56;
-  }
+  },
 );
 
 watch(isCollapse, (val) => {

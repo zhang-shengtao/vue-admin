@@ -25,7 +25,7 @@
     <div class="upload center" v-file:[accept]="upload" v-if="limit > images.length">
       <my-icon name="Plus" class="iconPlus" :size="30" />
     </div>
-    <perview :urlList="[previewUrl]"></perview>
+    <perview :url-list="previewUrl" v-if="isPreview" @close="isPreview = false" />
   </div>
 </template>
 
@@ -121,7 +121,7 @@ async function copyUrl(url) {
   width: 150px;
   height: 150px;
   border: 1px dashed gray;
-  background-color: #fafafa;
+  // background-color: #fafafa;
   border-radius: 5px;
   text-align: center;
   .iconPlus {

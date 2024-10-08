@@ -88,9 +88,8 @@ export function preview(el, binding) {
     el.style.cursor = "pointer";
     el.onclick = () => {
       const app = createApp(PreView, {
-        url: el.src,
-        modelValue: true,
-        "onUpdate:modelValue"(val) {
+        urlList: el.src,
+        onClose() {
           app.unmount();
         },
       });

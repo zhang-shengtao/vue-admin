@@ -1,5 +1,4 @@
 import { getMenu } from "@/src/api";
-import { config } from "@/config";
 import _createRouter, { routes, moduleRoute } from "@/src/router";
 const router = _createRouter();
 
@@ -55,9 +54,9 @@ function flatRoute(arr, path = "") {
   return flat;
 }
 // 需要处理的动态路由
-function concatRouter(routes = [], modulesRouter = []) {
+function concatRouter(routes = [], flat = []) {
   function findPage(path) {
-    return modulesRouter.find((v) => [formatPath(v.path), formatPath(v.url)].includes(formatPath(path)));
+    return flat.find((v) => [formatPath(v.path), formatPath(v.url)].includes(formatPath(path)));
   }
   function handleRouer(routers) {
     const arr = [];
@@ -115,11 +114,13 @@ export default defineStore("user", () => {
         .catch(reject);
     });
   }
-  // 不需要动态路由就拿全部
-  if (!config.isAddRouter) {
+
+  // 获取用户信息并处理左侧菜单栏
+  function getUserInfo() {
     data.userInfo.username = "adf3232342342"; // 如果没有用户信息的接口这里可以给个假的username
     formatRouter(routes);
   }
+
   // 清除已经注册的路由记录
   function resetRouter() {
     flatRoute(moduleRoute).forEach((route) => {
@@ -130,5 +131,5 @@ export default defineStore("user", () => {
     data.menuArr = [];
     data.searchMenu = [];
   }
-  return { ...toRefs(data), getRouterInfo, resetRouter };
+  return { ...toRefs(data), getRouterInfo, resetRouter, getUserInfo };
 });

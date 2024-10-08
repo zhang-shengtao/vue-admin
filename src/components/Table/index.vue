@@ -65,7 +65,7 @@ function tableSlot(s, isTabel = true) {
   return obj;
 }
 
-const elTableRef = ref(null);
+const elTableRef = useTemplateRef("elTableRef");
 
 defineExpose(
   new Proxy(
