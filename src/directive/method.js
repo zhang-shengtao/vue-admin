@@ -1,5 +1,6 @@
 import { typeOf, uploadFile } from "@/src/utils/method.js";
 import PreView from "@/src/components/Upload/perview.vue";
+import { fullscreenElement } from "@/src/utils/document.js";
 
 // v-file:[`.xls,.doc,.xlsx`].multiple.dray.image.img="uploadFile"
 export function file(el, binding) {
@@ -86,14 +87,22 @@ export function file(el, binding) {
 export function preview(el, binding) {
   el.onload = () => {
     el.style.cursor = "pointer";
+    const teleported = ["HTML", "BODY"].includes(fullscreenElement.value.nodeName);
     el.onclick = () => {
       const app = createApp(PreView, {
         urlList: el.src,
+        teleported: !fullscreenElement.value || teleported,
         onClose() {
           app.unmount();
         },
       });
-      app.mount(el);
+      if (!!fullscreenElement.value && !teleported) {
+        const div = document.createElement("div");
+        app.mount(div);
+        fullscreenElement.value.append(div);
+      } else {
+        app.mount(el);
+      }
     };
   };
 }

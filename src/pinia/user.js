@@ -2,6 +2,8 @@ import { getMenu } from "@/src/api";
 import _createRouter, { routes, moduleRoute } from "@/src/router";
 const router = _createRouter();
 
+const clearRouter = [];
+
 // 格式化路径
 function formatPath(val1, val2 = "") {
   if (val1.startsWith("http")) return val1;
@@ -53,7 +55,7 @@ function flatRoute(arr, path = "") {
   });
   return flat;
 }
-// 需要处理的动态路由
+// 需要处理的动态路由 routes(后端返回的路由) flat(前端的扁平化路由)
 function concatRouter(routes = [], flat = []) {
   function findPage(path) {
     return flat.find((v) => [formatPath(v.path), formatPath(v.url)].includes(formatPath(path)));
@@ -103,9 +105,11 @@ export default defineStore("user", () => {
           route.forEach((item) => {
             delete item.url;
             if (item.component.name === "layout") {
-              router.addRoute(item);
+              const tag = router.addRoute(item);
+              clearRouter.push(tag);
             } else {
-              router.addRoute("root", item);
+              const tag = router.addRoute("root", item);
+              clearRouter.push(tag);
             }
           });
           formatRouter(routes.concat(route));
@@ -123,10 +127,8 @@ export default defineStore("user", () => {
 
   // 清除已经注册的路由记录
   function resetRouter() {
-    flatRoute(moduleRoute).forEach((route) => {
-      const { name } = route;
-      if (name && router.hasRoute(name)) router.removeRoute(name);
-    });
+    clearRouter.forEach((v) => v());
+    clearRouter.length = 0;
     data.userInfo = {};
     data.menuArr = [];
     data.searchMenu = [];

@@ -25,11 +25,12 @@
     <div class="upload center" v-file:[accept]="upload" v-if="limit > images.length">
       <my-icon name="Plus" class="iconPlus" :size="30" />
     </div>
-    <perview :url-list="previewUrl" v-if="isPreview" @close="isPreview = false" />
+    <perview :url-list="previewUrl" :teleported="!fullscreenElement" v-if="isPreview" @close="isPreview = false" />
   </div>
 </template>
 
 <script setup>
+import { fullscreenElement } from "@/src/utils/document.js";
 import perview from "./perview.vue";
 const props = defineProps({
   accept: {

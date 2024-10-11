@@ -1,19 +1,23 @@
 <template>
   <div class="mytest">
     <el-card>
-      <!-- <el-input v-model="text" placeholder="输入框"></el-input> -->
+      <Form.form1 :formData="formData" />
+      <Form.form2 v-model="isShow" />
+      <el-input v-model="formData.password" placeholder="缓存"></el-input>
 
-      <!-- <Editor /> -->
-
-      <div contenteditable class="content">
-        <h1>adfa</h1>
-      </div>
+      <el-button @click="isShow = true">显示</el-button>
     </el-card>
   </div>
 </template>
 
 <script setup>
-import Editor from "@/src/components/Editor/index.vue";
+import * as Form from "./form.jsx";
+
+const formData = reactive({
+  name: "namename",
+  password: "passwordpassword",
+});
+const isShow = ref(false);
 
 onBeforeUnmount(() => {});
 </script>
@@ -21,5 +25,6 @@ onBeforeUnmount(() => {});
 <style lang="scss" scoped>
 .content {
   height: 500px;
+  color: #4c7e13;
 }
 </style>

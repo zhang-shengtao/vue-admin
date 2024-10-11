@@ -5,6 +5,7 @@
     :fetch-suggestions="querySearch"
     placeholder="请输入页面名称"
     @select="handleSelect"
+    style="width: 240px"
   />
 </template>
 

@@ -30,7 +30,7 @@ const viewer = useTemplateRef("viewer");
 
 const attrs = computed(() => {
   return {
-    ...props,
+    ...markRaw(props),
     urlList: Array.isArray(props.urlList) ? props.urlList : [props.urlList],
   };
 });

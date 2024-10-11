@@ -36,3 +36,30 @@ a {
 .icon_hover:hover {
   color: #349ef6;
 }
+
+.flex_row_center {
+  display: flex;
+  align-items: center;
+}
+
+.flex_center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainapp {
+  .el-input,
+  .el-select,
+  .el-input-number {
+    width: 220px;
+  }
+  .el-pagination {
+    .el-pagination__editor.el-input {
+      width: 56px;
+    }
+    .el-select {
+      width: 100px;
+    }
+  }
+}
