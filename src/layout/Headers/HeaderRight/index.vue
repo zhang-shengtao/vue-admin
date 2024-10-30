@@ -20,7 +20,7 @@
 
 <script setup>
 import searchPage from "./searchPage.vue";
-import { userPinia } from "@/src/pinia/user";
+import { userPinia } from "@/src/pinia";
 import { layoutData } from "@/src/layout";
 import { removeStorage } from "@/src/utils/storage";
 import { storageKey } from "@/config";
