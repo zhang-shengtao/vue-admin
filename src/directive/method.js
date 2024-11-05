@@ -1,6 +1,5 @@
 import { typeOf, uploadFile } from "@/src/utils/method.js";
 import PreView from "@/src/components/Upload/perview.vue";
-import { fullscreenElement } from "@/src/utils/document.js";
 
 // v-file:[`.xls,.doc,.xlsx`].multiple.dray.image.img="uploadFile"
 export function file(el, binding) {
@@ -85,21 +84,23 @@ export function file(el, binding) {
 
 // v-preview
 export function preview(el, binding) {
+  if (el.nodeName != "IMG") return console.error("请绑定img元素");
   el.onload = () => {
     el.style.cursor = "pointer";
-    const teleported = ["HTML", "BODY"].includes(fullscreenElement.value.nodeName);
     el.onclick = () => {
+      const fullscreenElement = document.fullscreenElement;
+      const teleported = fullscreenElement && ["HTML", "BODY"].includes(fullscreenElement.nodeName);
       const app = createApp(PreView, {
         urlList: el.src,
-        teleported: !fullscreenElement.value || teleported,
+        teleported: !fullscreenElement || teleported,
         onClose() {
           app.unmount();
         },
       });
-      if (!!fullscreenElement.value && !teleported) {
+      if (fullscreenElement && !teleported) {
         const div = document.createElement("div");
         app.mount(div);
-        fullscreenElement.value.append(div);
+        fullscreenElement.append(div);
       } else {
         app.mount(el);
       }

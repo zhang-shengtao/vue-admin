@@ -33,7 +33,7 @@
 // console.log(props.test);
 
 const total = ref(30);
-const url = "";
+const url = "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg";
 const tableData = [
   {
     date: "2016-05-03",
