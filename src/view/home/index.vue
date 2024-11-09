@@ -1,7 +1,13 @@
 <template>
   <el-card class="box-card">
-    <el-button style="margin-top: 10px" @click="clearSelection">clearSelection</el-button>
-    <my-table :data="tableData" :total="total" ref="MyTabels" @pageLimit="handlePagination" :columns="tabelHeaders">
+    <my-table
+      :data="tableData"
+      @selection-change="action"
+      :total="total"
+      ref="MyTabels"
+      @pageLimit="handlePagination"
+      :columns="columns"
+    >
       <template #input="{ column, $index }">
         <el-input v-model="text" placeholder="请输入zip"></el-input>
       </template>
@@ -17,16 +23,17 @@
       <template #empty>
         <div>空的数据</div>
       </template>
+      <el-button @click="clearSelection">左侧的</el-button>
     </my-table>
   </el-card>
 </template>
 
 <script setup>
-const props = defineProps(["test"]); // 通过路由传
-console.log(props.test);
+// const props = defineProps(["test"]); // 通过路由传参
+// console.log(props.test);
 
 const total = ref(30);
-const url = "";
+const url = "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg";
 const tableData = [
   {
     date: "2016-05-03",
@@ -68,77 +75,7 @@ const tableData = [
 
 const text = ref("");
 
-// const tabelHeaders = [
-//   {
-//     type: "selection",
-//     width: "120",
-//     fixed: true
-//   },
-//   {
-//     label: "时间",
-//     prop: "date",
-//     sortable: true,
-//     width: "300"
-//   },
-//   {
-//     label: "整体",
-//     align: "left",
-//     children: [
-//       {
-//         label: "姓名",
-//         prop: "name",
-//         width: "300"
-//       },
-//       {
-//         label: "地址信息",
-//         children: [
-//           {
-//             label: "年龄",
-//             prop: ({ row }) => row.age,
-//             width: "300",
-//             "column-key": "age",
-//             filters: [
-//               { text: "11岁", value: 11 },
-//               { text: "12岁", value: 12 },
-//               { text: "13岁", value: 13 }
-//             ],
-//             "filter-method": (value, row) => row.age === value
-//           },
-//           {
-//             label: "地址",
-//             prop: "address",
-//             width: "300"
-//           },
-//           {
-//             label: "state1111",
-//             prop: "state",
-//             width: "300"
-//           },
-//           {
-//             label: "图片",
-//             prop: "url",
-//             width: "300",
-//             slot: "image"
-//           },
-//           {
-//             label: "zpiyayya",
-//             prop: "zip",
-//             width: "300",
-//             header: "input"
-//           }
-//         ]
-//       }
-//     ]
-//   },
-//   {
-//     label: "编辑",
-//     fixed: "right",
-//     slot: "edit",
-//     width: "100"
-//   }
-// ];
-
-const tabelHeaders = [
+const columns = [
   {
     type: "selection",
     width: "120",
@@ -151,44 +88,53 @@ const tabelHeaders = [
     width: "300",
   },
   {
-    label: "姓名",
-    prop: "name",
-    width: "300",
-  },
-  {
-    label: "state1111",
-    prop: "state",
-    width: "300",
-    sortable: true,
-  },
-  {
-    label: "年龄",
-    prop: "age",
-    width: "300",
-    "column-key": "age",
-    filters: [
-      { text: "11岁", value: 11 },
-      { text: "12岁", value: 12 },
-      { text: "13岁", value: 13 },
+    label: "整体",
+    children: [
+      {
+        label: "姓名",
+        prop: "name",
+        width: "300",
+      },
+      {
+        label: "地址信息",
+        children: [
+          {
+            label: "年龄",
+            prop: ({ row }) => row.age,
+            width: "300",
+            "column-key": "age",
+            filters: [
+              { text: "11岁", value: 11 },
+              { text: "12岁", value: 12 },
+              { text: "13岁", value: 13 },
+            ],
+            "filter-method": (value, row) => row.age === value,
+          },
+          {
+            label: "地址",
+            prop: "address",
+            width: "300",
+          },
+          {
+            label: "state1111",
+            prop: "state",
+            width: "300",
+          },
+          {
+            label: "图片",
+            prop: "url",
+            width: "300",
+            slot: "image",
+          },
+          {
+            label: "zpiyayya",
+            prop: "zip",
+            width: "300",
+            header: "input",
+          },
+        ],
+      },
     ],
-    "filter-method": (value, row) => row.age === value,
-  },
-  {
-    label: "地址",
-    prop: "address",
-    width: "300",
-  },
-  {
-    label: "zpiyayya",
-    prop: "zip",
-    header: "input",
-    width: "300",
-  },
-  {
-    label: "图片",
-    prop: "url",
-    width: "300",
-    slot: "image",
   },
   {
     label: "编辑",
@@ -196,20 +142,80 @@ const tabelHeaders = [
     slot: "edit",
     width: "100",
   },
-  {
-    type: "expand",
-    slot: "expand",
-    label: ">",
-  },
 ];
 
-const MyTabels = ref(null);
+// const tabelHeaders = [
+//   {
+//     type: "selection",
+//     width: "120",
+//     fixed: true,
+//   },
+//   {
+//     label: "时间",
+//     prop: "date",
+//     sortable: true,
+//     width: "300",
+//   },
+//   {
+//     label: "姓名",
+//     prop: "name",
+//     width: "300",
+//   },
+//   {
+//     label: "state1111",
+//     prop: "state",
+//     width: "300",
+//     sortable: true,
+//   },
+//   {
+//     label: "年龄",
+//     prop: "age",
+//     width: "300",
+//     "column-key": "age",
+//     filters: [
+//       { text: "11岁", value: 11 },
+//       { text: "12岁", value: 12 },
+//       { text: "13岁", value: 13 },
+//     ],
+//     "filter-method": (value, row) => row.age === value,
+//   },
+//   {
+//     label: "地址",
+//     prop: "address",
+//     width: "300",
+//   },
+//   {
+//     label: "zpiyayya",
+//     prop: "zip",
+//     header: "input",
+//     width: "300",
+//   },
+//   {
+//     label: "图片",
+//     prop: "url",
+//     width: "300",
+//     slot: "image",
+//   },
+//   {
+//     label: "编辑",
+//     fixed: "right",
+//     slot: "edit",
+//     width: "100",
+//   },
+//   {
+//     type: "expand",
+//     slot: "expand",
+//     label: ">",
+//   },
+// ];
+
+const MyTabels = useTemplateRef("MyTabels");
 function clearSelection() {
   MyTabels.value.clearSelection();
 }
 
-function action(val) {
-  console.log(val);
+function action(val, a) {
+  console.log(val, a);
 }
 
 function handlePagination(val) {

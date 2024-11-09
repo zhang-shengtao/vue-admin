@@ -1,17 +1,12 @@
 <template>
-  <template v-if="dray">
-    <div v-file:[accept].dray="upload">
-      <slot></slot>
-    </div>
-  </template>
-  <div class="space" v-else>
+  <div class="space">
     <TransitionGroup name="list">
       <div
-        v-if="fileList.length"
+        v-if="images.length"
         class="fileList"
         @mouseenter="isShowModel = item"
         @mouseleave="isShowModel = ''"
-        v-for="(item, i) in fileList"
+        v-for="(item, i) in images"
         :key="item"
       >
         <img :src="item" class="img" alt="" />
@@ -27,37 +22,26 @@
         </div>
       </div>
     </TransitionGroup>
-    <template v-if="$slots.default">
-      <div v-file:[accept]="upload" v-if="limit > fileList.length">
-        <slot></slot>
-      </div>
-    </template>
-    <template v-else>
-      <div class="upload center" v-file:[accept]="upload" v-if="limit > fileList.length">
-        <my-icon name="Plus" class="iconPlus" :size="30" />
-      </div>
-    </template>
+    <div class="upload center" v-file:[accept]="upload" v-if="limit > images.length">
+      <my-icon name="Plus" class="iconPlus" :size="30" />
+    </div>
+    <perview :url-list="previewUrl" :teleported="false" v-if="isPreview" @close="isPreview = false" />
   </div>
-  <Perview :url="previewUrl" v-model="isPreview" />
 </template>
 
 <script setup>
-import Perview from "./perview.vue";
+import perview from "./perview.vue";
 const props = defineProps({
   accept: {
     type: String,
     default: "image/*",
-  },
-  dray: {
-    type: Boolean,
-    default: false,
   },
   limit: {
     type: Number,
     default: 1,
   },
   fileList: {
-    type: Array,
+    type: Array || String,
     default: [],
     required: true,
   },
@@ -70,6 +54,10 @@ const props = defineProps({
     required: true,
   },
 });
+const images = computed(() => {
+  if (typeof props.fileList === "string") return [props.fileList];
+  return props.fileList;
+});
 
 const emit = defineEmits(["update:file-list"]);
 const isShowModel = ref("");
@@ -79,7 +67,7 @@ const previewUrl = ref("");
 const deleteFileList = (item, i) => {
   emit(
     "update:file-list",
-    props.fileList.filter((url) => url != item)
+    props.fileList.filter((url) => url != item),
   );
 };
 
@@ -90,7 +78,7 @@ const preview = (url) => {
 
 const { copy } = useClipboard();
 async function copyUrl(url) {
-  copy(url);
+  await copy(url);
   ElMessage.success("复制成功");
 }
 </script>
@@ -132,7 +120,7 @@ async function copyUrl(url) {
   width: 150px;
   height: 150px;
   border: 1px dashed gray;
-  background-color: #fafafa;
+  // background-color: #fafafa;
   border-radius: 5px;
   text-align: center;
   .iconPlus {

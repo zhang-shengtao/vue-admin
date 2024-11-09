@@ -1,25 +1,16 @@
 <template>
-  <div style="overflow: hidden">
+  <div>
     <el-table :="$attrs" ref="elTableRef" border>
       <table-column v-for="(item, i) in columns" :key="i" :="item" :slots="tableSlot($slots, false)" />
       <template v-for="(val, key) in tableSlot($slots)" #[key]="scope">
         <component :is="val" :="scope" />
       </template>
     </el-table>
-    <div style="margin-top: 15px">
-      <el-dropdown placement="top" v-if="isAction">
-        <el-button type="primary" text>批量操作</el-button>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item v-for="(item, i) in action" :key="item" @click="() => $emit('changeAction', item, i)">
-              {{ item }}
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+    <div class="flex_row_center footer">
+      <slot v-if="$slots.default" />
+      <div v-else></div>
       <el-pagination
-        style="float: right"
-        small
+        size="small"
         :page-sizes="[10, 20, 30, 40]"
         background
         layout="total, sizes, prev, pager, next, jumper"
@@ -42,14 +33,6 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
-  isAction: {
-    type: Boolean,
-    default: false,
-  },
-  action: {
-    type: Array,
-    default: ["批量删除", "批量编辑", "批量审核"],
-  },
 });
 
 function tableSlot(s, isTabel = true) {
@@ -59,27 +42,32 @@ function tableSlot(s, isTabel = true) {
     if (s.empty) obj.empty = s.empty;
   } else {
     for (let key in s) {
-      if (!["append", "empty"].includes(key)) obj[key] = s[key];
+      if (!["append", "empty", "default"].includes(key)) obj[key] = s[key];
     }
   }
   return obj;
 }
 
-const elTableRef = ref(null);
+const elTableRef = useTemplateRef("elTableRef");
 
-const proxy = new Proxy(
-  {},
-  {
-    get(target, key) {
-      return elTableRef.value?.[key];
+defineExpose(
+  new Proxy(
+    {},
+    {
+      get(target, key) {
+        return elTableRef.value?.[key];
+      },
+      has(target, key) {
+        return key in elTableRef.value;
+      },
     },
-    has(target, key) {
-      return key in elTableRef.value;
-    },
-  },
+  ),
 );
-
-defineExpose(proxy);
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.footer {
+  margin-top: 10px;
+  justify-content: space-between;
+}
+</style>

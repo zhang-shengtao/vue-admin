@@ -13,7 +13,7 @@ export default [
     children: [
       {
         path: "t",
-        meta: { title: "关于", icon: "HomeFilled" },
+        meta: { title: "关于", icon: "HomeFilled", keepAlive },
         name: "t",
         component: () => import("@/src/view/about/test.vue"),
       },

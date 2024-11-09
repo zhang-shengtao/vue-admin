@@ -1,6 +1,6 @@
 <template>
   <div class="tag column-center">
-    <Icon class="ArrowLeftBold icon_hover" name="ArrowLeftBold" @click="scroll('left')" />
+    <my-icon class="ArrowLeftBold icon_hover" name="ArrowLeftBold" @click="scroll('left')" />
     <el-scrollbar ref="scrollbar" style="flex: 1" @scroll="(v) => (scrollLeft = v.scrollLeft)">
       <el-space ref="space">
         <el-tag
@@ -18,7 +18,7 @@
         >
       </el-space>
     </el-scrollbar>
-    <Icon class="ArrowRightBold icon_hover" name="ArrowRightBold" @click="scroll('right')" />
+    <my-icon class="ArrowRightBold icon_hover" name="ArrowRightBold" @click="scroll('right')" />
     <el-dropdown placement="bottom">
       <Icon name="Menu" :size="22" />
       <template #dropdown>

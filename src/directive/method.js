@@ -84,17 +84,26 @@ export function file(el, binding) {
 
 // v-preview
 export function preview(el, binding) {
+  if (el.nodeName != "IMG") return console.error("请绑定img元素");
   el.onload = () => {
     el.style.cursor = "pointer";
     el.onclick = () => {
+      const fullscreenElement = document.fullscreenElement;
+      const teleported = fullscreenElement && ["HTML", "BODY"].includes(fullscreenElement.nodeName);
       const app = createApp(PreView, {
-        url: el.src,
-        modelValue: true,
-        "onUpdate:modelValue"(val) {
+        urlList: el.src,
+        teleported: !fullscreenElement || teleported,
+        onClose() {
           app.unmount();
         },
       });
-      app.mount(el);
+      if (fullscreenElement && !teleported) {
+        const div = document.createElement("div");
+        app.mount(div);
+        fullscreenElement.append(div);
+      } else {
+        app.mount(el);
+      }
     };
   };
 }

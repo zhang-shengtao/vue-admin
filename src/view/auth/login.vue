@@ -13,7 +13,7 @@
           style="padding: 0 30px 0 15px"
           placeholder="请输入密码"
         />
-        <Icon class="isPassword" @click="isPassword = !isPassword" :name="isPassword ? 'View' : 'Hide'" />
+        <my-icon class="isPassword" @click="isPassword = !isPassword" :name="isPassword ? 'View' : 'Hide'" />
       </div>
       <el-divider style="top: 10px"> <span style="color: rgb(205, 209, 212)">欢迎使用本系统</span> </el-divider>
       <el-button class="submit" type="primary" @click="loginSubmit">登录</el-button>

@@ -1,14 +1,30 @@
 <template>
   <div class="mytest">
     <el-card>
-      <el-input v-model="text" placeholder="输入框"></el-input>
+      <Form.form1 :formData="formData" />
+      <Form.form2 v-model="isShow" />
+      <el-input v-model="formData.password" placeholder="缓存"></el-input>
+
+      <el-button @click="isShow = true">显示</el-button>
     </el-card>
   </div>
 </template>
 
 <script setup>
-const text = ref("");
-defineOptions({ name: "mytest" });
+import * as Form from "./form.jsx";
+
+const formData = reactive({
+  name: "namename",
+  password: "passwordpassword",
+});
+const isShow = ref(false);
+
+onBeforeUnmount(() => {});
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.content {
+  height: 500px;
+  color: #4c7e13;
+}
+</style>

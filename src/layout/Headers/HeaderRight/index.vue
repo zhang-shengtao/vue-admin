@@ -20,11 +20,13 @@
 
 <script setup>
 import searchPage from "./searchPage.vue";
+import { userPinia } from "@/src/pinia";
 import { layoutData } from "@/src/layout";
 import { removeStorage } from "@/src/utils/storage";
 import { storageKey } from "@/config";
 const { isFullscreen, toggle } = useFullscreen(document.documentElement);
 const { layoutInfoData, winWidth } = layoutData();
+const { resetRouter } = userPinia();
 
 function theme() {
   layoutInfoData.theme = layoutInfoData.theme === "normal" ? "dark" : "normal";
@@ -32,8 +34,9 @@ function theme() {
 }
 const router = useRouter();
 function layout() {
-  ElMessageBox.confirm("确认退出登录吗?", "提示", { type: "warning" }).then(() => {
+  ElMessageBox.confirm("确认退出登录吗?", "提示", { type: "warning", draggable: true }).then(() => {
     removeStorage(storageKey.token);
+    resetRouter();
     router.replace("/login");
   });
 }
