@@ -6,7 +6,7 @@
       <div class="drag">这里是拖拽区域</div>
     </my-upload> -->
     <el-button @click="logins">login</el-button>
-    <el-button v-file="uploadFile">upload</el-button>
+    <el-button v-file="chooseFile">upload</el-button>
     <el-button @click="downloadFile">download</el-button>
     <img width="100" v-preview height="100" :src="url" alt="测试图" />
     <!-- <el-input v-model="text" placeholder="输入框"></el-input> -->
@@ -40,7 +40,7 @@ function onUploadProgress(e) {
   console.log(e);
 }
 
-function uploadFile(e) {
+function chooseFile(e) {
   const data = new FormData();
   data.append("type", "file");
   data.append("file", e[0]);

@@ -9,11 +9,11 @@ export function typeOf(value) {
 
 /**
  * n-m的随机整数
- * @param n 最小值
- * @param m 最大值
- * @returns String
+ * @param n 最小值(默认1)
+ * @param m 最大值(默认100)
+ * @returns number
  */
-export function random(n, m) {
+export function random(n = 1, m = 100) {
   return Math.floor(Math.random() * (m - n) + n);
 }
 
@@ -29,12 +29,12 @@ export function randomString(length = 12) {
 }
 
 /**
- * 点击按钮掉起文件选择框
+ * 打开择文件选择框
  * @param {Object} obj 一个对象类型的参数
  * @param {Boolean} obj.multiple 是否多选
  * @param {String} obj.accept 需要选择的文件后缀名
  * */
-export function uploadFile(obj) {
+export function chooseFile(obj) {
   const { multiple, accept } = Object.assign({ multiple: false, accept: "*" }, obj || {});
   return new Promise((resolve, reject) => {
     let input = document.createElement("input");
@@ -48,8 +48,8 @@ export function uploadFile(obj) {
       for (const f of input.files) {
         flieList.push(f);
       }
-      resolve(flieList);
       input.removeEventListener("change", files);
+      resolve(flieList);
       input = null;
       flieList = null;
     }

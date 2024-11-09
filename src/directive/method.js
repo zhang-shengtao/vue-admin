@@ -1,7 +1,7 @@
-import { typeOf, uploadFile } from "@/src/utils/method.js";
+import { typeOf, chooseFile } from "@/src/utils/method.js";
 import PreView from "@/src/components/Upload/perview.vue";
 
-// v-file:[`.xls,.doc,.xlsx`].multiple.dray.image.img="uploadFile"
+// v-file:[`.xls,.doc,.xlsx`].multiple.dray.image.img="chooseFile"
 export function file(el, binding) {
   if (!["function", "asyncfunction"].includes(typeOf(binding.value))) {
     return console.error(new Error("请绑定回调函数"));
@@ -72,12 +72,12 @@ export function file(el, binding) {
       el.classList.remove(classNmae);
     };
     el.onclick = () => {
-      uploadFile({ multiple: true, accept }).then(binding.value);
+      chooseFile({ multiple: true, accept }).then(binding.value);
     };
   } else {
     el.style.cursor = "pointer";
     el.onclick = () => {
-      uploadFile({ multiple, accept }).then(binding.value);
+      chooseFile({ multiple, accept }).then(binding.value);
     };
   }
 }
