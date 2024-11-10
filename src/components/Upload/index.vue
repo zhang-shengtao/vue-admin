@@ -32,23 +32,29 @@
 <script setup>
 import perview from "./perview.vue";
 const props = defineProps({
+  // 文件类型
   accept: {
     type: String,
     default: "image/*",
   },
+  // 限制上传数量
   limit: {
     type: Number,
     default: 1,
   },
+  // 文件列表
   fileList: {
     type: Array || String,
     default: [],
     required: true,
   },
+  // 是否显示删除按钮
   isDetele: {
     type: Boolean,
     default: true,
   },
+  // 文件上传函数
+  // 上传文件返回一个promise，返回结果为文件地址
   upload: {
     type: Function,
     required: true,

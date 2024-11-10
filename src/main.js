@@ -25,6 +25,7 @@ export default async function _createApp() {
     app.mount("#app");
     return { app, pinia, router };
   } catch (error) {
+    console.error(error);
     throw error;
   }
 }

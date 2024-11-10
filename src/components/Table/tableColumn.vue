@@ -19,28 +19,35 @@
 <script setup>
 import { typeOf } from "@/src/utils/method.js";
 const props = defineProps({
+  // 嵌套的tableColumn
   children: {
     type: Array,
   },
+  // el-table-column自定义头部插槽名字
   header: {
     type: [String],
     default: "",
   },
+  // 所有的插槽集合
   slots: {
     type: Object,
     default: {},
   },
+  // 要显示的字段key
   prop: {
     type: [String, Function],
     default: "",
   },
+  // 格式化内容函数
   formatter: {
     type: Function,
   },
+  // el-table-column自定义默认插槽名字
   slot: {
     type: String,
     default: "",
   },
+  // 表格默认对齐方式
   align: {
     type: String,
     default: "center",

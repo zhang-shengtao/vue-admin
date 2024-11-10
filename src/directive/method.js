@@ -8,7 +8,7 @@ export function file(el, binding) {
   }
   const multiple = !!binding.modifiers.multiple;
   let accept = "*";
-  let ext = [];
+  let ext = []; // 拖拽必须要通过后缀名过滤文件类型
   if (binding.modifiers.image || binding.modifiers.img || binding.arg === "image/*") {
     accept = ".xbm,.tif,.jfif,.ico,.tiff,.gif,.svg,.jpeg,.svgz,.jpg,.webp,.png,.bmp,.pjp,.apng,.pjpeg,.avif";
     ext = accept.split(",");
@@ -71,18 +71,14 @@ export function file(el, binding) {
       e.stopPropagation();
       el.classList.remove(classNmae);
     };
-    el.onclick = () => {
-      chooseFile({ multiple: true, accept }).then(binding.value);
-    };
-  } else {
-    el.style.cursor = "pointer";
-    el.onclick = () => {
-      chooseFile({ multiple, accept }).then(binding.value);
-    };
   }
+  el.style.cursor = "pointer";
+  el.onclick = () => {
+    chooseFile({ multiple, accept }).then(binding.value);
+  };
 }
 
-// v-preview
+// v-preview="urlList"或者v-preview
 export function preview(el, binding) {
   if (el.nodeName != "IMG") return console.error("请绑定img元素");
   el.onload = () => {
