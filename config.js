@@ -27,4 +27,5 @@ export const storageKey = {
   token: `${key}_TOKEN`,
   theme: `${key}_THEME`,
   isTag: `${key}_IS_TAG`,
+  userInfo: `${key}_USER_INFO`,
 };
