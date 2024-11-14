@@ -87,7 +87,7 @@ export function preview(el, binding) {
       const fullscreenElement = document.fullscreenElement;
       const teleported = fullscreenElement && ["HTML", "BODY"].includes(fullscreenElement.nodeName);
       const app = createApp(PreView, {
-        urlList: Array.isArray(binding.value ? binding.value : el.src),
+        urlList: Array.isArray(binding.value) ? binding.value : el.src,
         teleported: !fullscreenElement || teleported,
         onClose() {
           app.unmount();
