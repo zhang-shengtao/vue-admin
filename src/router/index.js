@@ -1,14 +1,25 @@
 export * from "vue-router";
 import { createRouter, createWebHistory, createWebHashHistory } from "vue-router";
 import middleware from "./permission";
-import statics from "./modules/static";
-import moduleRouter from "./modules";
 import { config } from "@/config";
 
-export const routes = [...statics];
+const modules = import.meta.glob("./modules/*.js", { eager: true });
+const staticRoute = []; // 静态路由(如果不需要动态路由那所有路由就是静态路由不需要处理直接注册)
+const moduleRoutes = []; // 动态路由(如果需要动态路由那就是需要处理的动态路由) isAddRouter= true
 
-if (!config.isAddRouter) routes.push(...moduleRouter);
-export const moduleRoute = moduleRouter;
+for (const path in modules) {
+  const mod = modules[path];
+  const name = path.split("/").pop().replace(/\.js$/, "");
+  if (name === "static") staticRoute.push(...mod.default);
+  if (!config.isAddRouter) {
+    staticRoute.push(...mod.default);
+  } else {
+    moduleRoutes.push(...mod.default);
+  }
+}
+export const routes = staticRoute;
+
+export const moduleRoute = moduleRoutes;
 
 let router;
 export default function _createRouter() {
