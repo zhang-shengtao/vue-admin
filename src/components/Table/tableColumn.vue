@@ -62,9 +62,10 @@ function tableColumnProp(attrs) {
 }
 
 function rowKey(key, row, column, $index, formatter) {
+  if (!key) return "";
   if (typeOf(formatter) === "function") return formatter({ row, column, $index });
   if (typeOf(key) === "function") return key({ row, column, $index });
-  const keys = key.split(".");
+  const keys = key.split("."); // 'user[0].name'
   let value = "";
   keys.forEach((item) => {
     if (item.endsWith("]")) {

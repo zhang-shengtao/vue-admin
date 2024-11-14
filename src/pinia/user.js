@@ -65,6 +65,7 @@ function concatRouter(routes = [], flat = []) {
     routers.forEach((item) => {
       const page = findPage(item.path); // item.path后端返回的给前端的页面路由
       if (page) {
+        page.meta = Object.assign(page.meta || {}, item.meta || {});
         if (item.children && item.children.length) {
           page.children = handleRouer(item.children);
           arr.push(page);
