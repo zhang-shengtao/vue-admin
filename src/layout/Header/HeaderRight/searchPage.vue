@@ -36,5 +36,3 @@ function handleSelect({ path, target }) {
   router.push({ path });
 }
 </script>
-
-<style lang="scss" scoped></style>

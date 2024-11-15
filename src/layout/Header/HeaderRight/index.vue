@@ -41,5 +41,3 @@ function layout() {
   });
 }
 </script>
-
-<style lang="scss" scoped></style>

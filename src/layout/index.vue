@@ -1,19 +1,14 @@
 <template>
   <el-scrollbar height="100%" class="content" :style="{ width: `calc(100% - ${winWidth <= 750 ? 0 : menuWidth}px)` }">
-    <Headers></Headers>
-    <MainApp
-      :style="{
-        [inherit]: `calc(100vh - ${headerHeight}px)`,
-        padding: inherit === 'height' ? '0px' : '15px',
-      }"
-    />
+    <my-header></my-header>
+    <main-app :style="styleMain" />
   </el-scrollbar>
-  <Menus></Menus>
+  <my-menu></my-menu>
   <div class="model" @click="isModel = !isModel" v-if="winWidth <= 750 && isModel"></div>
 </template>
 
 <script setup>
-import { layoutData, Headers, MainApp, Menus } from "@/src/layout";
+import { layoutData, Header as MyHeader, MainApp as mainApp, Menu as MyMenu } from "@/src/layout";
 const { headerHeight, winWidth, menuWidth, isModel } = layoutData();
 defineOptions({ name: "Layout" });
 const inherit = ref("min-height");
@@ -21,6 +16,11 @@ const route = useRoute();
 provide("mainAppKeyComponent", ref(""));
 provide("tag", reactive([]));
 provide("delKeepAlive", ref(""));
+const styleMain = computed(() => ({
+  [inherit.value]: `calc(100vh - ${headerHeight.value}px)`,
+  padding: inherit.value === "height" ? "0px" : "15px",
+}));
+
 function inherits(val) {
   if (val.meta.isScreen) {
     inherit.value = "height";

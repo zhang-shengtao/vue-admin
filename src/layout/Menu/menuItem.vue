@@ -21,5 +21,3 @@ import { layoutData } from "@/src/layout";
 const { isModel } = layoutData();
 defineProps(["item"]);
 </script>
-
-<style lang="scss" scoped></style>

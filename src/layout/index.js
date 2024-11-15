@@ -1,12 +1,12 @@
 import layout from "./index.vue";
-export { default as Headers } from "./Headers/index.vue";
+export { default as Header } from "./Header/index.vue";
 export { default as MainApp } from "./MainApp/index.vue";
-export { default as Menus } from "./Menus/index.vue";
+export { default as Menu } from "./Menu/index.vue";
 import { layoutInfo } from "@/config";
 
 const layoutInfoData = reactive(Object.assign(layoutInfo));
 const menuWidth = ref(200); // 64 菜单栏的展开宽度
-const headerHeight = ref(86); //90 头部的默认高度
+const headerHeight = ref(86); //86 头部的默认高度
 const isCollapse = ref(false); // 是否合上菜单栏
 const { width: winWidth } = useWindowSize();
 const isModel = ref(false);
@@ -14,9 +14,10 @@ const isModel = ref(false);
 watch(
   () => layoutInfoData.isTag,
   (val) => {
-    if (val) headerHeight.value = 90;
+    if (val) headerHeight.value = 86;
     if (!val) headerHeight.value = 56;
   },
+  { immediate: true },
 );
 
 watch(isCollapse, (val) => {

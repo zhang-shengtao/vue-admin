@@ -32,5 +32,3 @@ if (props.path.startsWith("http")) {
   if (props.target) to.target = "_blank";
 }
 </script>
-
-<style lang="scss" scoped></style>
