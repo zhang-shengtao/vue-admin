@@ -28,7 +28,7 @@ export default defineConfig({
   },
   build: {
     outDir: "build",
-    copyPublicDir: false,
+    // copyPublicDir: false,
     rollupOptions: {
       output: {
         manualChunks: (id) => (id.includes("node_modules") ? "vendor" : ""),
