@@ -1,7 +1,7 @@
 /** 配置项文档：https://prettier.io/docs/en/configuration.html */
 
 module.exports = {
-  printWidth: 120, // 一行最多120
+  printWidth: 200, // 一行最多120
   tabWidth: 2, // 缩进2格
   bracketSpacing: true, // 大括号内的首尾需要空格
   arrowParens: "always", // 箭头函数，只有一个参数的时候，也需要括号
