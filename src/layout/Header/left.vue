@@ -1,12 +1,17 @@
 <template>
   <el-space :size="15">
     <my-icon class="icon_hover" :name="isShowMenu ? 'Expand' : 'Fold'" @click="isShowMenu = !isShowMenu" />
-    <breadcrumb />
+    <el-breadcrumb separator="/" class="breadcrumb">
+      <template v-for="item in $route.matched" :key="item.path">
+        <el-breadcrumb-item v-if="item.path != '/'">
+          {{ item.meta.title }}
+        </el-breadcrumb-item>
+      </template>
+    </el-breadcrumb>
   </el-space>
 </template>
 
 <script setup>
-import Breadcrumb from "./breadcrumb.vue";
 import { layoutData } from "@/src/layout";
 const { winWidth, isModel, isCollapse } = layoutData();
 

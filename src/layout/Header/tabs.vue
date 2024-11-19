@@ -20,7 +20,7 @@
     </el-scrollbar>
     <my-icon class="ArrowRightBold icon_hover" name="ArrowRightBold" @click="scroll('right')" />
     <el-dropdown placement="bottom">
-      <Icon name="Menu" :size="22" />
+      <my-icon name="Menu" :size="22" />
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item @click="mainAppKeyComponent = randomString()">刷新当前页</el-dropdown-item>

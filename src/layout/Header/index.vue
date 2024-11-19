@@ -1,16 +1,13 @@
 <template>
   <div class="header" :style="{ height: `${headerHeight}px` }">
-    <div class="header_title">
-      <header-left />
-      <header-right />
-    </div>
+    <div class="header_title"><left /><right /></div>
     <tabs v-if="layoutInfoData.isTag" />
   </div>
 </template>
 
 <script setup>
-import HeaderLeft from "./HeaderLeft/index.vue";
-import HeaderRight from "./HeaderRight/index.vue";
+import left from "./left.vue";
+import right from "./right.vue";
 import Tabs from "./tabs.vue";
 import { layoutData } from "@/src/layout";
 const { layoutInfoData, headerHeight } = layoutData();
