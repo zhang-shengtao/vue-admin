@@ -29,6 +29,17 @@ export function form1(props, { slots, emit, attrs, expose }) {
 }
 
 export function form2(props, { slots, emit, attrs, expose }) {
+  function reactiverReset(obj) {
+    const cloneObj = JSON.parse(JSON.stringify(obj));
+    const val = reactiver(obj);
+    const reset = () => {
+      for (const key in val) {
+        val[key] = cloneObj[key];
+      }
+    };
+    return [val, reset];
+  }
+
   const formData = reactive({
     name: "form2",
     password: "form2",
@@ -36,14 +47,7 @@ export function form2(props, { slots, emit, attrs, expose }) {
   });
   const input = ref("form2");
   return (
-    <el-dialog
-      draggable
-      destroy-on-close
-      modelValue={props.modelValue}
-      onUpdate:modelValue={(e) => emit("update:modelValue", e)}
-      title="提示框"
-      width="80%"
-    >
+    <el-dialog draggable destroy-on-close modelValue={props.modelValue} onUpdate:modelValue={(e) => emit("update:modelValue", e)} title="提示框" width="80%">
       <el-form status-icon inline label-width="auto">
         <el-form-item label="密码">
           <el-input modelValue={input.value} onUpdate:modelValue={(e) => (input.value = e)} placeholder="密码" />

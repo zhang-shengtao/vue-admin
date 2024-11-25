@@ -10,13 +10,13 @@ const moduleRoutes = []; // 动态路由(如果需要动态路由那就是需要
 for (const path in modules) {
   const mod = modules[path];
   const name = path.split("/").pop().replace(/\.js$/, "");
-  if (name === "static") staticRoute.push(...mod.default);
-  if (!config.isAddRouter) {
+  if (!config.isAddRouter || name === "static") {
     staticRoute.push(...mod.default);
   } else {
     moduleRoutes.push(...mod.default);
   }
 }
+
 export const routes = staticRoute;
 
 export const moduleRoute = moduleRoutes;

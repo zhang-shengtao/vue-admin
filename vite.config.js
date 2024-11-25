@@ -28,16 +28,18 @@ export default defineConfig({
   },
   build: {
     outDir: "build",
+    assetsDir: "assets",
     // copyPublicDir: false,
     rollupOptions: {
       output: {
         manualChunks: (id) => (id.includes("node_modules") ? "vendor" : ""),
-        assetFileNames(pattern) {
-          if (pattern.name.endsWith(".css")) return "css/[name]-[hash].css";
-          if ([".png", ".jpg", ".svg", "jpeg", ".webp", ".gif", ".ico"].some((ext) => pattern.name.endsWith(ext))) {
+        assetFileNames(assetInfo) {
+          const name = assetInfo.name;
+          if (name.endsWith(".css")) return "css/[name]-[hash].css";
+          if ([".png", ".jpg", ".svg", "jpeg", ".webp", ".gif", ".ico"].some((ext) => name.endsWith(ext))) {
             return "img/[name]-[hash].[ext]";
           }
-          return "assest/[name]-[hash].[ext]";
+          return "assets/[name]-[hash].[ext]";
         },
         chunkFileNames: "js/[name]-[hash].js",
         entryFileNames: "js/[name]-[hash].js",

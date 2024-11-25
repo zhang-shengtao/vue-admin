@@ -6,6 +6,7 @@
       <el-input v-model="formData.password" placeholder="缓存"></el-input>
 
       <el-button @click="isShow = true">显示</el-button>
+      <img src="@/public/vite.svg" alt="" style="width: 30px; height: 30px" />
     </el-card>
   </div>
 </template>
