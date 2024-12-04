@@ -1,3 +1,7 @@
+import MySliceFile from "@/src/webWorker/sliceFile?worker";
+import MyExportToExcel from "@/src/webWorker/exportToExcel?worker";
+import PreView from "@/src/components/Upload/perview.vue";
+
 /**
  * 判断类型
  * @param value 要判断的值
@@ -57,16 +61,41 @@ export function chooseFile(obj) {
 }
 
 /**
+ * 预览图片
+ * @param {String||Arrray} url 图片地址 支持数组
+ */
+export function proviewImage(url) {
+  const fullscreenElement = document.fullscreenElement;
+  const teleported = fullscreenElement && ["HTML", "BODY"].includes(fullscreenElement.nodeName);
+  const app = createApp(PreView, {
+    urlList: url,
+    teleported: !fullscreenElement || teleported,
+    onClose() {
+      app.unmount();
+    },
+  });
+  const div = document.createElement("div");
+  app.mount(div);
+  if (fullscreenElement) {
+    fullscreenElement.append(div);
+  } else {
+    document.body.append(div);
+  }
+}
+
+/**
  * 文件切片
  * @param { File | Array[File] } file 需要分片的文件 { File | Array[File] }
  * @returns {Array} Array[Object]
  */
 export function sliceFile(file) {
+  // 是否是文件对象
+  if (!(file instanceof File)) return new Error("file is not instanceof File");
   return new Promise((resolve) => {
     let fileList = [];
     const size = 1024 * 1024 * 10; // 每片大小10M
     const sliceFileTotal = Math.ceil(file.size / size); // 总共要切多少片
-    let cupNum = navigator.hardwareConcurrency; // 需要开启的线程(cup核心数)
+    let cupNum = navigator.hardwareConcurrency || 6; // 需要开启的线程(cup核心数)
     if (sliceFileTotal < cupNum) cupNum = sliceFileTotal;
     let remainder = sliceFileTotal % cupNum; // 多出来得分片数量
     const fragmentation = (sliceFileTotal - remainder) / cupNum; // 每一个线程需要分几片
@@ -75,16 +104,10 @@ export function sliceFile(file) {
     const promiseAll = [];
     for (let index = 0; index < cupNum; index++) {
       const p = new Promise((res) => {
-        const myWorker = new Worker(new URL("./sliceFile.js", import.meta.url), { type: "module" });
+        const myWorker = new MySliceFile({ type: "module" });
         end = start + fragmentation + (remainder > 0 ? 1 : 0);
         if (remainder > 0) remainder--;
-        myWorker.postMessage({
-          file,
-          size,
-          start,
-          end,
-          sliceFileTotal,
-        });
+        myWorker.postMessage({ file, size, start, end, sliceFileTotal });
         myWorker.onmessage = function (e) {
           res(e.data);
           myWorker.terminate();
@@ -137,4 +160,27 @@ export function downloadFlie(blob, fileName) {
   a = null;
   URL.revokeObjectURL(url);
   url = null;
+}
+
+/**
+ * 导出JSON数据为Excel表格
+ * @param {Array} header 要导出的表头JSON数据
+ * @param {Array[Array]} data 要导出的表体JSON数据
+ * @param {String} fileName 导出的文件名称
+ */
+export function exportToExcel(option) {
+  let { header, data, fileName, onProgress = (val) => {} } = Object.assign({ header: [], data: [], fileName: "", onProgress: (val) => {} }, option || {});
+  return new Promise((resolve, reject) => {
+    const myWorker = new MyExportToExcel({ type: "module" });
+    myWorker.postMessage({ header, data });
+    myWorker.onmessage = function (event) {
+      const { error, progress, blob } = event.data;
+      event.data.hasOwnProperty.call("progress") && onProgress(progress);
+      if (error) return reject(error);
+      if (!fileName.endsWith(".xls") || !fileName.endsWith(".xlsx")) fileName += ".xlsx";
+      downloadFlie(blob, fileName);
+      myWorker.terminate();
+      resolve();
+    };
+  });
 }

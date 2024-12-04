@@ -1,16 +1,10 @@
 <template>
   <el-card class="box-card">
-    <my-table
-      :data="tableData"
-      @selection-change="action"
-      :total="total"
-      ref="MyTabels"
-      @pageLimit="handlePagination"
-      :columns="columns"
-    >
+    <my-table :data="tableData" @selection-change="action" :total="total" ref="MyTabels" @pageLimit="handlePagination" :columns="columns">
       <template #input="{ column, $index }">
         <el-input v-model="text" placeholder="请输入zip"></el-input>
       </template>
+
       <template #edit="{ row, column, $index }">
         <el-tag>Tag{{ $index }}</el-tag>
       </template>
@@ -82,7 +76,7 @@ const columns = [
     fixed: true,
   },
   {
-    label: "时间",
+    label: "时间1",
     prop: "date",
     sortable: true,
     width: "300",

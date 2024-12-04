@@ -1,7 +1,7 @@
 import SparkMD5 from "spark-md5";
 
 // 主线程发送消息过来
-addEventListener("message", async (e) => {
+self.onmessage = (e) => {
   const { file, size, start, end, sliceFileTotal } = e.data;
   const promiseAll = [];
   let startSize = 0;
@@ -13,7 +13,7 @@ addEventListener("message", async (e) => {
     promiseAll.push(promiseFileSlice(file, startSize, endSize, sliceFileTotal, index, endSize - startSize));
   }
   Promise.all(promiseAll).then(self.postMessage);
-});
+};
 
 function promiseFileSlice(file, start, end, total, index, size) {
   return new Promise((reslove) => {
