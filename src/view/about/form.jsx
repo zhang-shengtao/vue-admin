@@ -1,6 +1,5 @@
 export function form1(props, { slots, emit, attrs, expose }) {
   //   const formData = toRef(props, "formData");
-
   const formData = reactive({
     name: "name密码111",
     password: "password提交",

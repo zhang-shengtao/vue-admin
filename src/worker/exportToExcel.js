@@ -1,7 +1,7 @@
 import * as XLSX from "xlsx";
 
 let wb = XLSX.utils.book_new();
-let processedRows = 0;
+
 self.onmessage = function (e) {
   const { data, header } = e.data;
   const MaxSheetSize = 500000;
@@ -49,8 +49,6 @@ function addSheet(ws, data, progress) {
   for (let i = 0; i < totalRows; i += batchSize) {
     let batch = data.slice(i, i + batchSize);
     XLSX.utils.sheet_add_aoa(ws, batch, { origin: -1 });
-    processedRows += i / totalRows;
-    console.log("进度=>", processedRows);
     batch = null;
   }
   return ws;

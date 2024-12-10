@@ -1,5 +1,5 @@
-import MySliceFile from "@/src/webWorker/sliceFile?worker";
-import MyExportToExcel from "@/src/webWorker/exportToExcel?worker";
+import MySliceFile from "@/src/worker/sliceFile?worker";
+import MyExportToExcel from "@/src/worker/exportToExcel?worker";
 import PreView from "@/src/components/Upload/perview.vue";
 
 /**

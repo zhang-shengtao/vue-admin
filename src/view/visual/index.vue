@@ -2,7 +2,7 @@
   <div class="header"></div>
   <div class="content">
     <Echart :option="option" class="item item1" />
-    <div class="item item2">2</div>
+    <my-echarts :option="option" class="item item2">2</my-echarts>
     <div class="item item3">3</div>
     <div class="item item4">4</div>
     <div class="item item5">5</div>
@@ -51,7 +51,7 @@ const op = pie([
 ]);
 
 onMounted(() => {
-  // option.value = op;
+  option.value = op;
 });
 </script>
 

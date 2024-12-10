@@ -103,3 +103,21 @@ export function preview(el, binding) {
     };
   };
 }
+
+// v-resize="fn"
+export const resize = {
+  mounted(el, binding) {
+    const observer = new ResizeObserver((entries) => {
+      const { width, height } = entries[0].contentRect;
+      binding.value({ w: width, h: height });
+    });
+    observer.observe(el);
+    el._resizeObserver = observer;
+  },
+  unmounted(el) {
+    if (el._resizeObserver) {
+      el._resizeObserver.disconnect();
+      delete el._resizeObserver;
+    }
+  },
+};

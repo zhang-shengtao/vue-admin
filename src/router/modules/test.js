@@ -21,7 +21,7 @@ export default [
       },
       {
         path: "test_home",
-        meta: { title: "二级", icon: "HomeFilled", keepAlive },
+        meta: { title: "二级1", icon: "HomeFilled", keepAlive },
         props: { test: "这里是测试的数据路由传参" },
         name: "test_home",
         component: () => import("@/src/view/home/index.vue"),

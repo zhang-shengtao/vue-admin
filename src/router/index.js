@@ -25,7 +25,7 @@ let router;
 export default function _createRouter() {
   if (router) return router;
   router = createRouter({
-    history: createWebHashHistory(config.base),
+    history: createWebHistory(config.base),
     routes,
     strict: true,
   });
