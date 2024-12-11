@@ -58,7 +58,7 @@ function flatRoute(arr, path = "") {
 // 需要处理的动态路由 routes(后端返回的路由) flat(前端的扁平化路由)
 function concatRouter(routes = [], flat = []) {
   function findPage(path) {
-    return flat.find((v) => [formatPath(v.path), formatPath(v.url)].includes(formatPath(path)));
+    return flat.find((v) => [formatPath(v.url)].includes(formatPath(path)));
   }
   function handleRouer(routers) {
     const arr = [];
@@ -131,8 +131,6 @@ export default defineStore("user", () => {
     clearRouter.forEach((v) => v());
     clearRouter.length = 0;
     data.userInfo = {};
-    data.menuArr = [];
-    data.searchMenu = [];
   }
   return { ...toRefs(data), getRouterInfo, resetRouter, getUserInfo };
 });
