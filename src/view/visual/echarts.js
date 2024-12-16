@@ -4,8 +4,7 @@ function getPie3D(pieData, internalDiameterRatio, boxHeight) {
   let startValue = 0;
   let endValue = 0;
   const legendData = [];
-  const k =
-    typeof internalDiameterRatio !== "undefined" ? (1 - internalDiameterRatio) / (1 + internalDiameterRatio) : 1 / 3;
+  const k = typeof internalDiameterRatio !== "undefined" ? (1 - internalDiameterRatio) / (1 + internalDiameterRatio) : 1 / 3;
   // 为每一个饼图数据，生成一个 series-surface 配置
   for (let i = 0; i < pieData.length; i++) {
     sumValue += pieData[i].value;
@@ -28,10 +27,8 @@ function getPie3D(pieData, internalDiameterRatio, boxHeight) {
         color: "",
         opacity: "",
       };
-      itemStyle.color =
-        typeof pieData[i].itemStyle.color !== "undefined" ? (itemStyle.color = pieData[i].itemStyle.color) : null;
-      itemStyle.opacity =
-        typeof pieData[i].itemStyle.opacity !== "undefined" ? (itemStyle.opacity = pieData[i].itemStyle.opacity) : null;
+      itemStyle.color = typeof pieData[i].itemStyle.color !== "undefined" ? (itemStyle.color = pieData[i].itemStyle.color) : null;
+      itemStyle.opacity = typeof pieData[i].itemStyle.opacity !== "undefined" ? (itemStyle.opacity = pieData[i].itemStyle.opacity) : null;
 
       seriesItem.itemStyle = itemStyle;
     }
@@ -43,14 +40,7 @@ function getPie3D(pieData, internalDiameterRatio, boxHeight) {
     endValue = startValue + series[i].pieData.value;
     series[i].pieData.startRatio = startValue / sumValue;
     series[i].pieData.endRatio = endValue / sumValue;
-    series[i].parametricEquation = getParametricEquation(
-      series[i].pieData.startRatio,
-      series[i].pieData.endRatio,
-      false,
-      false,
-      k,
-      series[i].pieData.value
-    );
+    series[i].parametricEquation = getParametricEquation(series[i].pieData.startRatio, series[i].pieData.endRatio, false, false, k, series[i].pieData.value);
     startValue = endValue;
     legendData.push(series[i].name);
   }

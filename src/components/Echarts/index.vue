@@ -17,7 +17,7 @@ const props = defineProps({
     default: false,
   },
 });
-let myChart;
+let myChart = null;
 const container = useTemplateRef("container");
 watchEffect(draw);
 
@@ -32,13 +32,16 @@ function resize({ w, h }) {
 function draw() {
   if (!container.value || !myChart) return;
   myChart.clear();
+  if (props.isShowMask) {
+    myChart.hideLoading();
+    myChart.showLoading({ zlevel: 1, lineWidth: 3, text: "", color: "red", maskColor: "rgba(255, 255, 255, 0.8)" });
+  }
   myChart.setOption(props.option);
   myChart.hideLoading();
 }
 
 onMounted(() => {
   myChart = echarts.init(container.value);
-  if (!props.isShowMask) return;
   myChart.showLoading({ zlevel: 1, lineWidth: 3, text: "", color: "red", maskColor: "rgba(255, 255, 255, 0.8)" });
 });
 
@@ -48,13 +51,19 @@ onUnmounted(() => {
   myChart = null;
 });
 
-function getCharts() {
-  return myChart;
-}
-
-defineExpose({
-  getCharts,
-});
+defineExpose(
+  new Proxy(
+    {},
+    {
+      get(target, key) {
+        return myChart?.[key];
+      },
+      has(target, key) {
+        return key in myChart;
+      },
+    },
+  ),
+);
 </script>
 
 <style scoped lang="scss">

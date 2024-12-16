@@ -1,8 +1,8 @@
 <template>
   <div class="header"></div>
   <div class="content">
-    <Echart :option="option" class="item item1" />
-    <my-echarts :option="option" class="item item2">2</my-echarts>
+    <div class="item item1" />
+    <my-echarts :option="option" ref="myEcharts" class="item item2">2</my-echarts>
     <div class="item item3">3</div>
     <div class="item item4">4</div>
     <div class="item item5">5</div>
@@ -13,13 +13,14 @@
 </template>
 
 <script setup>
-import Echart from "./component/echarts.vue";
 import { pie } from "./echarts";
 const option = ref({});
 const { width, height } = useWindowSize();
 const w = 1920; // 设计稿宽高
 const h = 1080; // 设计稿宽高
 const scal = ref(0.8);
+
+console.log(useId());
 
 watch(width, (val) => {
   if (val >= 750 && val < 1200) {
@@ -50,8 +51,11 @@ const op = pie([
   },
 ]);
 
+const myEchart = useTemplateRef("myEcharts");
+
 onMounted(() => {
   option.value = op;
+  console.log(111);
 });
 </script>
 

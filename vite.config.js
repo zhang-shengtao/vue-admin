@@ -29,7 +29,7 @@ export default defineConfig({
   build: {
     outDir: "build",
     assetsDir: "assets",
-    // copyPublicDir: false,
+    sourcemap: false,
     rollupOptions: {
       output: {
         manualChunks: (id) => (id.includes("node_modules") ? "vendor" : ""),
