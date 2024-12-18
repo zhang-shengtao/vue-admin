@@ -1,6 +1,5 @@
 import SparkMD5 from "spark-md5";
 
-// 主线程发送消息过来
 self.onmessage = (e) => {
   const { file, size, start, end, sliceFileTotal } = e.data;
   const promiseAll = [];
