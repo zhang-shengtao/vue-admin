@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: plugins(),
   base: config.base,
   server: {
-    port: 8000,
+    port: 80,
     host: "0.0.0.0",
     proxy: {
       "^/api": {
@@ -32,7 +32,11 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: (id) => (id.includes("node_modules") ? "vendor" : ""),
+        manualChunks(id) {
+          console.log("id=>", id.split("vue-admin")[1]);
+
+          if (id.includes("node_modules")) return "vendor";
+        },
         assetFileNames(assetInfo) {
           const name = assetInfo.name;
           if (name.endsWith(".css")) return "css/[name]-[hash].css";

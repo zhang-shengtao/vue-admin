@@ -2,7 +2,7 @@
   <div class="header"></div>
   <div class="content">
     <div class="item item1" />
-    <my-echarts :option="option" ref="myEcharts" class="item item2">2</my-echarts>
+    <my-echarts :option="option" ref="myEcharts" class="item item2" />
     <div class="item item3">3</div>
     <div class="item item4">4</div>
     <div class="item item5">5</div>
@@ -55,7 +55,6 @@ const myEchart = useTemplateRef("myEcharts");
 
 onMounted(() => {
   option.value = op;
-  console.log(111);
 });
 </script>
 
