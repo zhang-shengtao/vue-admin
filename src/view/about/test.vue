@@ -7,6 +7,11 @@
 
       <el-button @click="isShow = true">显示</el-button>
       <!-- <img src="@/public/vite.svg" alt="" style="width: 30px; height: 30px" /> -->
+
+      <div contenteditable="true" @input="contenteditable" class="edit">
+        <h1>123</h1>
+        <h2>456</h2>
+      </div>
     </el-card>
   </div>
 </template>
@@ -20,6 +25,16 @@ const formData = reactive({
 });
 const isShow = ref(false);
 
+function contenteditable(e) {
+  const selection = window.getSelection();
+  if (selection.rangeCount > 0) {
+    const range = selection.getRangeAt(0);
+    const focusedElement = range.startContainer.nodeType === Node.TEXT_NODE ? range.startContainer.parentNode : range.startContainer;
+
+    console.log(focusedElement);
+  }
+}
+
 onBeforeUnmount(() => {});
 </script>
 
@@ -27,5 +42,27 @@ onBeforeUnmount(() => {});
 .content {
   height: 500px;
   color: #4c7e13;
+}
+.edit {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #ccc;
+  overflow-y: scroll;
+  scrollbar-width: thin; /* 'auto' | 'thin' | 'none' */
+  scrollbar-color: #dddddd transparent; /* thumb color, track color */
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+.edit::-webkit-scrollbar {
+  width: 6px;
+}
+.edit::-webkit-scrollbar-track {
+  background: transparent;
+}
+.edit::-webkit-scrollbar-thumb {
+  background: #dddddd;
+  border-radius: 10px;
+}
+.edit[contenteditable] {
+  outline: none;
 }
 </style>

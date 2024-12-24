@@ -33,8 +33,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          console.log("id=>", id.split("vue-admin")[1]);
-
           if (id.includes("node_modules")) return "vendor";
         },
         assetFileNames(assetInfo) {

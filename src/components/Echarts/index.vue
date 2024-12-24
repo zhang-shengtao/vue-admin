@@ -4,12 +4,12 @@
 
 <script setup>
 import * as echarts from "echarts/core";
-import { BarChart, PieChart } from "echarts/charts";
-import { TitleComponent, TooltipComponent, GridComponent } from "echarts/components";
-import { LabelLayout, UniversalTransition } from "echarts/features";
+import { BarChart, PieChart, LineChart } from "echarts/charts";
+import { TitleComponent, LegendComponent } from "echarts/components";
+// import { LabelLayout, UniversalTransition } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
 import "echarts-gl";
-echarts.use([BarChart, PieChart, TitleComponent, TooltipComponent, CanvasRenderer, GridComponent, LabelLayout, UniversalTransition]);
+echarts.use([BarChart, PieChart, LineChart, TitleComponent, LegendComponent, CanvasRenderer]);
 const props = defineProps({
   option: {
     type: Object,
