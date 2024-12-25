@@ -14,7 +14,7 @@
         <my-icon class="isPassword" @click="isPassword = !isPassword" :name="isPassword ? 'View' : 'Hide'" />
       </div>
       <el-divider style="top: 10px"> <span style="color: rgb(205, 209, 212)">欢迎使用本系统</span> </el-divider>
-      <el-button class="submit" type="primary" @click="loginSubmit">登录</el-button>
+      <el-button class="submit" type="primary" :loading="isSubmit" @click="loginSubmit">登录</el-button>
     </div>
     <div class="model"></div>
   </div>
@@ -26,6 +26,7 @@ import { setStorage } from "@/src/utils/storage.js";
 import { storageKey } from "@/config.js";
 const router = useRouter();
 const isPassword = ref(false);
+const isSubmit = ref(false);
 const fromData = reactive({
   username: "",
   password: "",
@@ -34,7 +35,9 @@ const fromData = reactive({
 function loginSubmit() {
   if (!fromData.username) return ElMessage("请填写账号");
   if (!fromData.password) return ElMessage("请填写密码");
+  isSubmit.value = true;
   setStorage(storageKey.token, Math.random().toString(16).substr(2));
+  isSubmit.value = false;
   router.push("/");
 }
 </script>
