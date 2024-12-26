@@ -20,5 +20,6 @@ dist-ssr
 .DS_Store
 .vscode
 .vite
-*.zip*
+/*.zip
+/*.rar
 /stats.html
