@@ -1,7 +1,14 @@
 import { typeOf, chooseFile } from "@/src/utils/method.js";
 import PreView from "@/src/components/Upload/perview.vue";
 
-// v-file:[`.xls,.doc,.xlsx`].multiple.dray.image.img="chooseFile"
+/*
+ * v-file:[`.xls,.doc,.xlsx`].multiple.dray.image.img="chooseFile"
+ *v-file:[`.xls,.doc,.xlsx`] = fn // 单选指定后缀的文件
+ *v-file.multiple = fn // 多选图片
+ *v-file.image.img="fn" // 单选图片
+ *v-file.image.image="fn"// 单选图片
+ *v-file.image.dray="fn" // 拖拽图片
+ */
 export function file(el, binding) {
   if (!["function", "asyncfunction"].includes(typeOf(binding.value))) {
     return console.error(new Error("请绑定回调函数"));
