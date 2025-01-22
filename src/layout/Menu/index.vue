@@ -1,6 +1,6 @@
 <template>
   <el-scrollbar height="100%" :style="{ width: menuWidth + 'px', left: winWidth <= 750 ? `${left}px` : 0 }" class="menus">
-    <el-menu :default-active="$route.path" text-color="#fff" style="border: none; --el-menu-bg-color: transparent" :collapse="isCollapse">
+    <el-menu :default-active="$route.path" style="border: none; --el-menu-bg-color: transparent" :collapse="isCollapse">
       <menu-item v-for="item in menuArr" :key="item.path" :item="item" />
     </el-menu>
   </el-scrollbar>
@@ -26,5 +26,6 @@
     left: 0;
     top: 0;
     z-index: 5;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
   }
 </style>

@@ -47,9 +47,7 @@
     editorRef.value.destroy();
   }
 
-  defineExpose({
-    destroy,
-  });
+  defineExpose({ destroy });
 </script>
 
 <style lang="scss" scoped></style>
