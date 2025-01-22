@@ -1,0 +1,10 @@
+{
+  "include": ["./src/**/*", "json", "./mock/**/*", "./*", "prettier.config.cjs"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["*"]
+    },
+    "types": ["element-plus/global"]
+  }
+}

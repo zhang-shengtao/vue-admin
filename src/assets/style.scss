@@ -1,0 +1,65 @@
+html.dark {
+  --el-menu-bg-color: #000000;
+  --el-menu-hover-bg-color: #035165;
+  --mian-app-bg: transparent;
+  --box-shadow-color: 0 0 3px 0 #999;
+  --el-header-bg: #000000;
+  --w-e-textarea-bg-color: #333;
+  --w-e-textarea-color: #fff;
+  --w-e-toolbar-bg-color: #333;
+  --w-e-toolbar-color: #999;
+  --w-e-toolbar-disabled-color: #595959;
+}
+
+html.normal {
+  --el-menu-bg-color: #010d22;
+  --el-menu-hover-bg-color: #035165;
+  --mian-app-bg: #f5f5f5;
+  --box-shadow-color: 0 0 3px 0 #cacaca;
+  --el-header-bg: white;
+}
+
+html,
+body,
+#app {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.icon_hover:hover {
+  color: #349ef6;
+}
+
+.flex_row_center {
+  display: flex;
+  align-items: center;
+}
+
+.flex_center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainapp {
+  .el-input,
+  .el-select,
+  .el-input-number {
+    width: 220px;
+  }
+  .el-pagination {
+    .el-pagination__editor.el-input {
+      width: 56px;
+    }
+    .el-select {
+      width: 100px;
+    }
+  }
+}
