@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-  import { pie } from "./echarts";
+  import { getPie3D } from "./echarts";
   const option = ref({});
   const { width, height } = useWindowSize();
   const w = 1920; // 设计稿宽高
@@ -28,28 +28,46 @@
     }
   });
 
-  const op = pie([
-    {
-      name: "谷歌",
-      value: 20,
-    },
-    {
-      name: "火狐",
-      value: 15,
-    },
-    {
-      name: "IE",
-      value: 40,
-    },
-    {
-      name: "QQ浏览器",
-      value: 15,
-    },
-    {
-      name: "UC浏览器",
-      value: 10,
-    },
-  ]);
+  const op = getPie3D(
+    [
+      {
+        name: "性能测试",
+        value: 134,
+        itemStyle: {
+          color: "#99D3F3",
+        },
+      },
+      {
+        name: "安全",
+        value: 56,
+        itemStyle: {
+          color: "#007AFF",
+        },
+      },
+      {
+        name: "功能",
+        value: 57,
+        itemStyle: {
+          color: "#2acf81",
+        },
+      },
+      {
+        name: "易用性",
+        value: 51,
+        itemStyle: {
+          color: "#1F9AA7",
+        },
+      },
+      {
+        name: "代码",
+        value: 11,
+        itemStyle: {
+          color: "#F5B64C",
+        },
+      },
+    ],
+    0,
+  );
 
   const myEchart = useTemplateRef("myEcharts");
 

@@ -67,14 +67,16 @@ export function chooseFile(obj) {
 export function proviewImage(url) {
   const fullscreenElement = document.fullscreenElement;
   const teleported = fullscreenElement && ["HTML", "BODY"].includes(fullscreenElement.nodeName);
+  let div = document.createElement("div");
   const app = createApp(PreView, {
     urlList: url,
     teleported: !fullscreenElement || teleported,
     onClose() {
       app.unmount();
+      div.remove();
+      div = null;
     },
   });
-  const div = document.createElement("div");
   app.mount(div);
   if (fullscreenElement) {
     fullscreenElement.append(div);

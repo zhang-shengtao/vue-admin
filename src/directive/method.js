@@ -1,5 +1,4 @@
-import { typeOf, chooseFile } from "@/utils/method.js";
-import PreView from "@/components/Upload/perview.vue";
+import { typeOf, chooseFile, proviewImage } from "@/utils/method.js";
 
 /*
  * v-file:[`.xls,.doc,.xlsx`].multiple.dray.image.img="chooseFile"
@@ -91,22 +90,7 @@ export function preview(el, binding) {
   el.onload = () => {
     el.style.cursor = "pointer";
     el.onclick = () => {
-      const fullscreenElement = document.fullscreenElement;
-      const teleported = fullscreenElement && ["HTML", "BODY"].includes(fullscreenElement.nodeName);
-      const app = createApp(PreView, {
-        urlList: Array.isArray(binding.value) ? binding.value : el.src,
-        teleported: !fullscreenElement || teleported,
-        onClose() {
-          app.unmount();
-        },
-      });
-      if (fullscreenElement && !teleported) {
-        const div = document.createElement("div");
-        app.mount(div);
-        fullscreenElement.append(div);
-      } else {
-        app.mount(el);
-      }
+      proviewImage(binding.value || el.src);
     };
   };
 }
