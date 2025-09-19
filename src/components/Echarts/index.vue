@@ -8,29 +8,16 @@
   import { TitleComponent, TooltipComponent, LegendComponent } from "echarts/components";
   // import { LabelLayout, UniversalTransition } from "echarts/features";
   import { CanvasRenderer } from "echarts/renderers";
-  import "echarts-gl";
+  // import "echarts-gl";
   echarts.use([BarChart, PieChart, LineChart, TitleComponent, TooltipComponent, LegendComponent, CanvasRenderer]);
-  const props = defineProps({
-    option: {
-      type: Object,
-      required: true,
-      default: {},
-    },
-    isShowMask: {
-      type: Boolean,
-      default: false,
-    },
-  });
+  const props = defineProps({ option: { type: Object, required: true, default: {} }, isShowMask: { type: Boolean, default: false } });
   let myChart = null;
   const container = useTemplateRef("container");
   watchEffect(draw);
 
   function resize({ w, h }) {
     if (!container.value) return;
-    myChart.resize({
-      width: w,
-      height: h,
-    });
+    myChart.resize({ width: w, height: h });
   }
 
   function draw() {

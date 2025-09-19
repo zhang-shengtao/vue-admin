@@ -8,6 +8,7 @@ export default defineConfig({
   base: config.base,
   server: {
     port: 51734,
+    open: true,
     host: "0.0.0.0",
     proxy: {
       "^/api": {

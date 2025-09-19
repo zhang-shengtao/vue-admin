@@ -100,7 +100,9 @@ export const resize = {
   mounted(el, binding) {
     const observer = new ResizeObserver((entries) => {
       const { width, height } = entries[0].contentRect;
-      binding.value({ w: width, h: height });
+      requestAnimationFrame(() => {
+        binding.value({ w: width, h: height });
+      });
     });
     observer.observe(el);
     el._resizeObserver = observer;

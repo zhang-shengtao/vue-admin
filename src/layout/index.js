@@ -4,8 +4,9 @@ export { default as MainApp } from "./MainApp/index.vue";
 export { default as Menu } from "./Menu/index.vue";
 import { layoutInfo } from "#/config";
 
+const MENUWIIDTH = 200;
 const layoutInfoData = reactive(Object.assign(layoutInfo));
-const menuWidth = ref(200); // 64 菜单栏的展开宽度
+const menuWidth = ref(MENUWIIDTH); // 64 菜单栏的展开宽度
 const headerHeight = ref(86); //86 头部的默认高度
 const isCollapse = ref(false); // 是否合上菜单栏
 const { width: winWidth } = useWindowSize();
@@ -22,7 +23,7 @@ watch(
 
 watch(isCollapse, (val) => {
   if (val) menuWidth.value = 64;
-  if (!val) menuWidth.value = 200;
+  if (!val) menuWidth.value = MENUWIIDTH;
 });
 
 let isShowMenu = null;

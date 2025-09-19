@@ -1,7 +1,7 @@
 export function form1(props, { slots, emit, attrs, expose }) {
   //   const formData = toRef(props, "formData");
   const formData = reactive({
-    name: "name密码111",
+    name: "name密码33333333333333",
     password: "password提交",
   });
 
@@ -17,7 +17,7 @@ export function form1(props, { slots, emit, attrs, expose }) {
 
   return (
     <el-form status-icon label-width="auto">
-      <el-form-item label="密码">
+      <el-form-item label="密码11">
         <el-input modelValue={input.value} onUpdate:modelValue={(e) => (input.value = e)} placeholder="密码" />
       </el-form-item>
       <el-form-item label="提交">
@@ -47,7 +47,7 @@ export function form2(props, { slots, emit, attrs, expose }) {
   });
 
   const formData = reactive({
-    name: "form2",
+    name: "form211111111111111111",
     password: "form2",
     id: 2,
   });
@@ -55,7 +55,7 @@ export function form2(props, { slots, emit, attrs, expose }) {
   return (
     <el-dialog draggable destroy-on-close modelValue={props.modelValue} onUpdate:modelValue={(e) => emit("update:modelValue", e)} title="提示框" width="80%">
       <el-form status-icon inline label-width="auto">
-        <el-form-item label="密码">
+        <el-form-item label="密码22">
           <el-input modelValue={input.value} onUpdate:modelValue={(e) => (input.value = e)} placeholder="密码" />
         </el-form-item>
         <el-form-item label="提交">

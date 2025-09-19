@@ -12,7 +12,7 @@ export default [
     children: [
       {
         path: "home",
-        meta: { title: "首页", icon: "devicon:yii", target, isScreen },
+        meta: { title: "首页", icon: "famicons:accessibility", target, isScreen },
         props: { test: "这里是测试的数据路由传参" },
         name: "home",
         component: () => import("@/view/home/index.vue"),

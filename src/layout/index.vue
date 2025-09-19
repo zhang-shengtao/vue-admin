@@ -16,10 +16,7 @@
   provide("mainAppKeyComponent", ref(""));
   provide("tag", reactive([]));
   provide("delKeepAlive", ref(""));
-  const styleMain = computed(() => ({
-    [inherit.value]: `calc(100vh - ${headerHeight.value}px)`,
-    padding: inherit.value === "height" ? "0px" : "15px",
-  }));
+  const styleMain = computed(() => ({ [inherit.value]: `calc(100vh - ${headerHeight.value}px)`, padding: inherit.value === "height" ? "0px" : "15px" }));
 
   function inherits(val) {
     if (val.meta.isScreen) {

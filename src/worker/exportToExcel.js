@@ -26,12 +26,7 @@ self.onmessage = function (e) {
       cellStyles: false,
       sheetStubs: false,
       Props: {},
-      Workbook: {
-        Views: [{ RTL: false }],
-        CalcPr: {},
-        Sheets: [],
-        Names: [],
-      },
+      Workbook: { Views: [{ RTL: false }], CalcPr: {}, Sheets: [], Names: [] },
     });
     const blob = new Blob([new Uint8Array(wbout)], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
     wb = null;
